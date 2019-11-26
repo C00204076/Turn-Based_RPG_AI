@@ -23,7 +23,7 @@ public class BaseEnemy : MonoBehaviour
     public float m_currentMP;
 
     // Stats/Attributes
-    public int m_strenght; // Physical power
+    public int m_strength; // Physical power
     public int m_intelligence; // Magic power
     public int m_dexterity; // Balance and critical rate
     public int m_constitution; // HP and defense

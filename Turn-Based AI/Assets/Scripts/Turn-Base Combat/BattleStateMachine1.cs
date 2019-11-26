@@ -1,0 +1,52 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BattleStateMachine1 : MonoBehaviour
+{
+    public enum PerformAction
+    {
+        WAIT,
+        TAKEACTION,
+        PERFORMACTION
+    }
+
+    public PerformAction m_battleStates;
+
+    public List<HandleTurn> m_performList = new List<HandleTurn>();
+
+    //
+    public List<GameObject> m_heroes = new List<GameObject>();
+    public List<GameObject> m_enemies = new List<GameObject>();
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_battleStates = PerformAction.WAIT;
+        m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
+        m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        switch (m_battleStates)
+        {
+            case (PerformAction.WAIT):
+
+                break;
+            case (PerformAction.TAKEACTION):
+
+                break;
+            case (PerformAction.PERFORMACTION):
+
+                break;
+        }
+    }
+
+    //
+    public void collectActions(HandleTurn input)
+    {
+        m_performList.Add(input);
+    }
+}
