@@ -15,6 +15,7 @@ using UnityEngine;
 public class HandleTurn
 {
     public string Attacker; // Attacker's name
+    public string Type;
     public GameObject AttackingObject; // Who's attacking
     public GameObject Target; // Attacker's target 
 }
