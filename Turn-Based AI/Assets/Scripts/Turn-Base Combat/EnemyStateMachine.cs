@@ -34,7 +34,7 @@ public class EnemyStateMachine : MonoBehaviour
     private HandleTurn attack;
     //actionTime
     private bool m_startedAct = false;
-    private GameObject m_heroTarget;
+    public GameObject m_heroTarget;
     private float m_animationSpeed;
 
 
@@ -121,7 +121,7 @@ public class EnemyStateMachine : MonoBehaviour
         m_startedAct = true;
 
         // Animate enemy attacking hero, when near
-        Vector3 heroPos = new Vector3(m_heroTarget.transform.position.x - 1.5f, 
+        Vector3 heroPos = new Vector3(m_heroTarget.transform.position.x, 
                                       m_heroTarget.transform.position.y, 
                                       m_heroTarget.transform.position.z);
         // Return null if true
@@ -131,12 +131,21 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         // Wait
+        yield return new WaitForSeconds(0.5f);
         // Do damage
 
+        // Animate back to sart position
+        Vector3 firstPos = m_startPos;
+        while(moveTowardsStart(firstPos))
+        {
+            yield return null;
+        }
+
         // Remove performer from BSM list
-
+        m_bsm.m_performList.RemoveAt(0);
         // Reset BSM -> Wait
-
+        m_bsm.m_battleStates = BattleStateMachine1.PerformAction.WAIT;
+        // End of Coroutine
         m_startedAct = false;
         // Reset this enemy state
         m_attackTime = 0.0f;
@@ -146,5 +155,15 @@ public class EnemyStateMachine : MonoBehaviour
     private bool moveTowardsHero(Vector3 target)
     {
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, m_animationSpeed * Time.deltaTime));
+    }
+
+    private bool moveTowardsStart(Vector3 target)
+    {
+        return target != (transform.position = Vector3.MoveTowards(transform.position, target, m_animationSpeed * Time.deltaTime));
+    }
+
+    public void setHeroTarget(GameObject target)
+    {
+        m_heroTarget = target;
     }
 }
