@@ -19,6 +19,22 @@ public class BattleStateMachine1 : MonoBehaviour
     public List<GameObject> m_heroes = new List<GameObject>();
     public List<GameObject> m_enemies = new List<GameObject>();
 
+    //
+    public enum HeroGUI
+    {
+        ACTIVATE,
+        WAITING,
+        INPUT1,
+        INPUT2,
+        DONE
+    }
+    //
+    public HeroGUI m_heroInput;
+    //
+    public List<GameObject> m_heroToManage = new List<GameObject>();
+    private HandleTurn m_herosChoice;
+
+
     // Start is called before the first frame update
     void Start()
     {
