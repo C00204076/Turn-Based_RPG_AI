@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BattleStateMachine1 : MonoBehaviour
@@ -33,7 +34,9 @@ public class BattleStateMachine1 : MonoBehaviour
     //
     public List<GameObject> m_heroToManage = new List<GameObject>();
     private HandleTurn m_herosChoice;
-
+    //
+    public GameObject m_enemyButton;
+    public Transform m_spacer;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,8 @@ public class BattleStateMachine1 : MonoBehaviour
         m_battleStates = PerformAction.WAIT;
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+
+        enemyButtons();
     }
 
     // Update is called once per frame
@@ -87,4 +92,24 @@ public class BattleStateMachine1 : MonoBehaviour
     {
         m_performList.Add(input);
     }
+
+    //
+    void enemyButtons()
+    {
+        foreach(GameObject enemy in m_enemies)
+        {
+            GameObject newBtn = Instantiate(m_enemyButton) as GameObject;
+            EnemySelectButton btn = newBtn.GetComponent<EnemySelectButton>();
+
+            EnemyStateMachine currentEnemy = enemy.GetComponent<EnemyStateMachine>();
+
+            //Text btnText = newBtn.transform.Find("Text").gameObject.GetComponent<Text>();
+            //btnText.text = currentEnemy.m_enemy.name;
+
+            //btn.EnemyPrefab = enemy;
+
+            newBtn.transform.SetParent(m_spacer);
+        }
+    }
+
 }

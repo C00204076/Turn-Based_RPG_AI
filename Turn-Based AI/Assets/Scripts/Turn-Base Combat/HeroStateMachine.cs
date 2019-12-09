@@ -14,6 +14,8 @@ using UnityEngine.UI;
 public class HeroStateMachine : MonoBehaviour
 {
     public BaseHero m_hero;
+    private BattleStateMachine1 m_bsm;
+    private GameObject m_heroObject;
 
     public enum TurnState
     {
@@ -40,6 +42,9 @@ public class HeroStateMachine : MonoBehaviour
         //
         m_turnBar.transform.localScale = new Vector3(0.0f, 1.0f, 1.0f);
         //
+        m_bsm = GameObject.Find("BattleManager").GetComponent<BattleStateMachine1>();
+        m_heroObject = GameObject.Find("Hero");
+        //
         m_currentState = TurnState.PROCESSING;
     }
 
@@ -52,9 +57,11 @@ public class HeroStateMachine : MonoBehaviour
                 updateTurnBarProgress();
                 break;
             case TurnState.ADDTOLIST:
-
+                m_bsm.m_heroToManage.Add(m_heroObject);
+                m_currentState = TurnState.WAITING;
                 break;
             case TurnState.WAITING:
+                // idle
 
                 break;
             case TurnState.SELECTING:

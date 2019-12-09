@@ -13,6 +13,7 @@ using UnityEngine;
 public class EnemyStateMachine : MonoBehaviour
 {
     private BattleStateMachine1 m_bsm;
+    private GameObject m_enemyObject;
     public BaseEnemy m_enemy;
 
     public enum TurnState
@@ -48,6 +49,7 @@ public class EnemyStateMachine : MonoBehaviour
         m_currentState = TurnState.PROCESSING;
         //
         m_bsm = GameObject.Find("BattleManager").GetComponent<BattleStateMachine1>();
+        m_enemyObject = GameObject.Find("Enemy");
         m_startPos = transform.position;
         //
         attack = new HandleTurn();
@@ -154,12 +156,18 @@ public class EnemyStateMachine : MonoBehaviour
 
     private bool moveTowardsHero(Vector3 target)
     {
-        return target != (transform.position = Vector3.MoveTowards(transform.position, target, m_animationSpeed * Time.deltaTime));
+        return target != (m_enemyObject.transform.position = Vector2.MoveTowards(
+            new Vector3(transform.position.x, transform.position.y, transform.position.z), 
+            new Vector3(target.x, target.y, target.z), 
+            m_animationSpeed * Time.deltaTime));
     }
 
     private bool moveTowardsStart(Vector3 target)
     {
-        return target != (transform.position = Vector3.MoveTowards(transform.position, target, m_animationSpeed * Time.deltaTime));
+        return target != (m_enemyObject.transform.position = Vector2.MoveTowards(
+            new Vector3(transform.position.x, transform.position.y, transform.position.z),
+            new Vector3(target.x, target.y, target.z), 
+            m_animationSpeed * Time.deltaTime));
     }
 
     public void setHeroTarget(GameObject target)
