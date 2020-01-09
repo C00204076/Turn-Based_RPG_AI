@@ -11,7 +11,7 @@ using UnityEngine;
 // Known bugs:
 
 // Make Node public
-[System.Serializable]
+/*[System.Serializable]
 // Base Node class
 public abstract class Node : MonoBehaviour
 {
@@ -206,4 +206,4 @@ public class ActionNode : Node
                 return m_nodeState;
         }
     }
-}
+}*/
