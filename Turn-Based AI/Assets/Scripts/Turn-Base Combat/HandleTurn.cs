@@ -18,4 +18,7 @@ public class HandleTurn
     public string Type;
     public GameObject AttackingObject; // Who's attacking
     public GameObject Target; // Attacker's target 
+
+    // Which attack is being performed
+    public BasicAttack m_choosenAttack;
 }
