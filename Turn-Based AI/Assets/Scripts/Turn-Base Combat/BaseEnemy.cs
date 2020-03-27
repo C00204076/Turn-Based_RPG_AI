@@ -22,6 +22,12 @@ public class BaseEnemy : MonoBehaviour
     public float m_baseMP;
     public float m_currentMP;
 
+    public float m_baseATK;
+    public float m_currentATK;
+
+    public float m_baseDEF;
+    public float m_currentDEF;
+
     // Stats/Attributes
     public int m_strength; // Physical power
     public int m_intelligence; // Magic power
@@ -67,4 +73,6 @@ public class BaseEnemy : MonoBehaviour
     }
 
     public Damage m_enemyDamage;
+
+    public List<BasicAttack> m_attacks = new List<BasicAttack>();
 }

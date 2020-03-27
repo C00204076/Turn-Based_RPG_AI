@@ -94,4 +94,14 @@ public class HeroStateMachine : MonoBehaviour
             m_currentState = TurnState.ADDTOLIST;
         }
     }
+
+    public void takeDamage(float damage)
+    {
+        m_hero.m_currentHP -= damage;
+
+        if (m_hero.m_currentHP <= 0)
+        {
+            m_currentState = TurnState.DEAD;
+        }
+    }
 }

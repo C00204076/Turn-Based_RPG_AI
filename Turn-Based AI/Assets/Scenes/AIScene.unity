@@ -1903,13 +1903,21 @@ MonoBehaviour:
   m_name: Mage
   m_baseHP: 90
   m_currentHP: 90
-  m_baseMP: 250
-  m_currentMP: 250
-  m_strength: 0
+  m_baseATK: 0
+  m_currentATK: 0
+  m_baseDEF: 0
+  m_currentDEF: 0
+  m_strength: 6
   m_intelligence: 50
   m_dexterity: 20
   m_constitution: 10
   m_agility: 15
+  m_attacks:
+  - {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1482740044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,6 +2320,10 @@ MonoBehaviour:
   m_currentHP: 0
   m_baseMP: 0
   m_currentMP: 0
+  m_baseATK: 0
+  m_currentATK: 0
+  m_baseDEF: 0
+  m_currentDEF: 0
   m_strength: 0
   m_intelligence: 0
   m_dexterity: 0
@@ -2319,6 +2331,10 @@ MonoBehaviour:
   m_agility: 0
   m_enemyType: 0
   m_enemyDamage: 0
+  m_attacks:
+  - {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105, type: 3}
+  - {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb, type: 3}
+  - {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f, type: 3}
 --- !u!1 &1825252940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,13 +2605,21 @@ MonoBehaviour:
   m_name: Warrior
   m_baseHP: 150
   m_currentHP: 150
-  m_baseMP: 50
-  m_currentMP: 50
-  m_strength: 0
-  m_intelligence: 8
+  m_baseATK: 0
+  m_currentATK: 0
+  m_baseDEF: 0
+  m_currentDEF: 0
+  m_strength: 10
+  m_intelligence: 30
   m_dexterity: 11
   m_constitution: 22
   m_agility: 9
+  m_attacks:
+  - {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2137574595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,13 +2734,21 @@ MonoBehaviour:
   m_name: Thief
   m_baseHP: 110
   m_currentHP: 110
-  m_baseMP: 170
-  m_currentMP: 170
-  m_strength: 0
+  m_baseATK: 0
+  m_currentATK: 0
+  m_baseDEF: 0
+  m_currentDEF: 0
+  m_strength: 11
   m_intelligence: 21
   m_dexterity: 50
   m_constitution: 10
   m_agility: 45
+  m_attacks:
+  - {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &7197051556531857554
 PrefabInstance:
   m_ObjectHideFlags: 0
