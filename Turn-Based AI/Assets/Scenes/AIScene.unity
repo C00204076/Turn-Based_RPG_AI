@@ -1105,7 +1105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &660276136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1886,6 +1886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hero: {fileID: 1340934844}
+  m_enemyTarget: {fileID: 0}
   m_currentState: 0
   m_turnBar: {fileID: 900022909}
 --- !u!114 &1340934844
@@ -2588,6 +2589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hero: {fileID: 2110743767}
+  m_enemyTarget: {fileID: 0}
   m_currentState: 0
   m_turnBar: {fileID: 164381549}
 --- !u!114 &2110743767
@@ -2717,6 +2719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hero: {fileID: 2137574599}
+  m_enemyTarget: {fileID: 0}
   m_currentState: 0
   m_turnBar: {fileID: 871562719}
 --- !u!114 &2137574599

@@ -74,6 +74,7 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
             case TurnState.ACTION:
                 StartCoroutine(actionTime());
+                //m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
 

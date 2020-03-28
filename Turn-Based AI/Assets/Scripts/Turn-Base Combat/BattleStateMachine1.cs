@@ -67,14 +67,31 @@ public class BattleStateMachine1 : MonoBehaviour
                 if(m_performList[0].Type == "Enemy")
                 {
                     EnemyStateMachine esm = performer.GetComponent<EnemyStateMachine>();
-                    esm.m_heroTarget = m_performList[0].Target;
-                    esm.m_currentState = EnemyStateMachine.TurnState.ACTION;
+                    for (int i = 0; i < m_heroes.Count; i++)
+                    {
+                        if (m_performList[0].Target == m_heroes[i])
+                        {
+                            esm.m_heroTarget = m_performList[0].Target;
+                            esm.m_currentState = EnemyStateMachine.TurnState.ACTION;
+                            break;
+                        }
+
+                        else 
+                        {
+                            int j = Random.Range(0, m_heroes.Count);
+                            m_performList[0].Target = m_heroes[j];
+                            esm.m_heroTarget = m_performList[0].Target;
+                            esm.m_currentState = EnemyStateMachine.TurnState.ACTION;
+                        }
+                    }
                 }
 
                 //
                 if (m_performList[0].Type == "Hero")
                 {
-
+                    HeroStateMachine hsm = performer.GetComponent<HeroStateMachine>();
+                    hsm.m_enemyTarget = m_performList[0].Target;
+                    hsm.m_currentState = HeroStateMachine.TurnState.ACTION;
                 }
 
                 m_battleStates = PerformAction.PERFORMACTION;
