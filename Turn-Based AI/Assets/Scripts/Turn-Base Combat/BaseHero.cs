@@ -19,6 +19,9 @@ public class BaseHero : MonoBehaviour
     public float m_baseHP;
     public float m_currentHP;
 
+    public float m_baseMP;
+    public float m_currentMP;
+
     public float m_baseATK;
     public float m_currentATK;
 

@@ -36,16 +36,25 @@ public class HeroStateMachine : MonoBehaviour
 
     public TurnState m_currentState;
 
-    public Image m_turnBar;
+    private Image m_turnBar;
 
     private Vector3 m_barScale;
 
     private bool m_alive = true;
-
+    // Hero panel
+    private HeroPanelStats m_stats;
+    public GameObject m_heroPanel;
+    private Transform m_heroPanelSpacer;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        // Find Spacer
+        m_heroPanelSpacer = GameObject.Find("HeroPanelSpacer").transform;
+        // Create panel with info
+        createHeroPanel();
+
         //
         m_barScale = new Vector3();
         //
@@ -65,6 +74,7 @@ public class HeroStateMachine : MonoBehaviour
         {
             case TurnState.PROCESSING:
                 updateTurnBarProgress();
+                //m_currentState = TurnState.ADDTOLIST;
                 break;
             case TurnState.ADDTOLIST:
                 m_bsm.m_heroToManage.Add(m_heroObject);
@@ -163,10 +173,11 @@ public class HeroStateMachine : MonoBehaviour
     {
         m_barScale = m_turnBar.transform.localScale;
 
-        if (m_barScale.x < 1.0f)
+        if (m_barScale.x < 0.98f)
         {
             //
             m_turnBar.transform.localScale += new Vector3(0.009f, 0.0f, 0.0f);
+            //m_stats.m_progressBar.transform.localScale += new Vector3(0.009f, 0.0f, 0.0f);// = m_turnBar.transform.localScale
         }
         
 
@@ -183,7 +194,32 @@ public class HeroStateMachine : MonoBehaviour
 
         if (m_hero.m_currentHP <= 0)
         {
+            m_hero.m_currentHP = 0;
             m_currentState = TurnState.DEAD;
         }
+
+        updateHeroPanel();
+    }
+
+    // Creates Hero Panel
+    void createHeroPanel()
+    {
+        m_heroPanel = Instantiate(m_heroPanel) as GameObject;
+        m_stats = m_heroPanel.GetComponent<HeroPanelStats>();
+
+        m_stats.m_heroName.text = m_hero.m_name;
+        m_stats.m_heroHP.text = "HP: " + m_hero.m_currentHP;
+        m_stats.m_heroMP.text = "MP: " + m_hero.m_currentMP;
+
+        m_turnBar = m_stats.m_progressBar;
+        m_heroPanel.transform.SetParent(m_heroPanelSpacer, false);
+        
+    }
+
+    // Updates the stats
+    void updateHeroPanel()
+    {
+        m_stats.m_heroHP.text = "HP: " + m_hero.m_currentHP;
+        m_stats.m_heroMP.text = "MP: " + m_hero.m_currentMP;
     }
 }
