@@ -29,14 +29,25 @@ public class BattleStateMachine1 : MonoBehaviour
         INPUT2,
         DONE
     }
+
+    //
+    private ActionButtonStats m_stats;
+    private ActionButtonStats m_statsM;
     //
     public HeroGUI m_heroInput;
     //
     public List<GameObject> m_heroToManage = new List<GameObject>();
     private HandleTurn m_herosChoice;
     //
-    public GameObject m_enemyButton;
-    public Transform m_spacer;
+    public GameObject m_actionPanel;
+    public GameObject m_actionSpacer;
+    //
+    public GameObject m_magicPanel;
+    public GameObject m_magicSpacer;
+
+    public GameObject m_actionButton;
+    public GameObject m_magicButton;
+    private List<GameObject> m_atkBtns = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +56,9 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        enemyButtons();
+        
+
+        //enemyButtons();
     }
 
     // Update is called once per frame
@@ -102,6 +115,26 @@ public class BattleStateMachine1 : MonoBehaviour
 
                 break;
         }
+
+        switch(m_heroInput)
+        {
+            case (HeroGUI.ACTIVATE):
+                if(m_heroToManage.Count > 0)
+                {
+                    m_herosChoice = new HandleTurn();
+
+                    createAttackButtons();
+
+                    m_heroInput = HeroGUI.WAITING;
+                }
+                break;
+            case (HeroGUI.WAITING):
+
+                break;
+            case (HeroGUI.DONE):
+                heroInputDone();
+                break;
+        }
     }
 
     //
@@ -111,7 +144,7 @@ public class BattleStateMachine1 : MonoBehaviour
     }
 
     //
-    void enemyButtons()
+    /*void enemyButtons()
     {
         foreach(GameObject enemy in m_enemies)
         {
@@ -127,6 +160,57 @@ public class BattleStateMachine1 : MonoBehaviour
 
             newBtn.transform.SetParent(m_spacer);
         }
+    }*/
+
+    //
+    public void input1()
+    {
+        m_herosChoice.Attacker = m_heroToManage[0].name;
+        m_herosChoice.AttackingObject = m_heroToManage[0];
+        m_herosChoice.Type = "Hero";
+
     }
 
+    //
+    public void input2()
+    {
+        m_herosChoice.Target = m_enemies[0];
+        m_heroInput = HeroGUI.DONE;
+    }
+
+    //
+    void heroInputDone()
+    {
+        m_performList.Add(m_herosChoice);
+
+        foreach (GameObject atkBtn in m_atkBtns)
+        {
+            Destroy(atkBtn);
+        }
+        m_atkBtns.Clear();
+
+        m_heroToManage.RemoveAt(0);
+        m_heroInput = HeroGUI.ACTIVATE;
+    }
+
+    void createAttackButtons()
+    {
+        m_actionButton = Instantiate(m_actionButton) as GameObject;
+        m_stats = m_actionButton.GetComponent<ActionButtonStats>();
+
+        m_stats.m_heroName.text = "Attack";
+        m_actionButton.GetComponent<Button>().onClick.AddListener( () => input1());
+
+        m_actionButton.transform.SetParent(m_actionSpacer.transform, false);
+        m_atkBtns.Add(m_actionButton);
+
+        m_magicButton = Instantiate(m_magicButton) as GameObject;
+        m_stats = m_magicButton.GetComponent<ActionButtonStats>();
+
+        m_stats.m_heroName.text = "Magic";
+        //m_magicButton.GetComponent<Button>().onClick.AddListener(() => input1());
+
+        m_magicButton.transform.SetParent(m_actionSpacer.transform, false);
+        m_atkBtns.Add(m_magicButton);
+    }
 }
