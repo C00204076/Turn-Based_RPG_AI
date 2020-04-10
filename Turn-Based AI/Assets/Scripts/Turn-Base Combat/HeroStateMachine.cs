@@ -15,7 +15,7 @@ public class HeroStateMachine : MonoBehaviour
 {
     public BaseHero m_hero;
     private BattleStateMachine1 m_bsm;
-    private GameObject m_heroObject;
+    public GameObject m_heroObject;
     //
     private HandleTurn attack;
     //
@@ -61,7 +61,7 @@ public class HeroStateMachine : MonoBehaviour
         m_turnBar.transform.localScale = new Vector3(0.0f, 1.0f, 1.0f);
         //
         m_bsm = GameObject.Find("BattleManager").GetComponent<BattleStateMachine1>();
-        m_heroObject = GameObject.Find("Hero");
+        //m_heroObject = GameObject.Find("Hero");
         m_startPos = transform.position;
         //
         m_currentState = TurnState.PROCESSING;

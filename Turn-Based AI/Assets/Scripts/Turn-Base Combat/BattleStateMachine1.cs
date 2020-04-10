@@ -41,13 +41,14 @@ public class BattleStateMachine1 : MonoBehaviour
     //
     public GameObject m_actionPanel;
     public GameObject m_actionSpacer;
-    //
-    public GameObject m_magicPanel;
-    public GameObject m_magicSpacer;
 
     public GameObject m_actionButton;
     public GameObject m_magicButton;
     private List<GameObject> m_atkBtns = new List<GameObject>();
+    //
+    public GameObject m_magicPanel;
+    public GameObject m_magicSpacer;
+    public GameObject m_skillButton;
 
     // Start is called before the first frame update
     void Start()
@@ -56,9 +57,8 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        
-
-        //enemyButtons();
+        m_actionPanel.SetActive(false);
+        m_magicPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -123,6 +123,7 @@ public class BattleStateMachine1 : MonoBehaviour
                 {
                     m_herosChoice = new HandleTurn();
 
+                    m_actionPanel.SetActive(true);
                     createAttackButtons();
 
                     m_heroInput = HeroGUI.WAITING;
@@ -168,6 +169,7 @@ public class BattleStateMachine1 : MonoBehaviour
         m_herosChoice.Attacker = m_heroToManage[0].name;
         m_herosChoice.AttackingObject = m_heroToManage[0];
         m_herosChoice.Type = "Hero";
+        m_actionPanel.SetActive(false);
 
     }
 
@@ -195,22 +197,75 @@ public class BattleStateMachine1 : MonoBehaviour
 
     void createAttackButtons()
     {
-        m_actionButton = Instantiate(m_actionButton) as GameObject;
-        m_stats = m_actionButton.GetComponent<ActionButtonStats>();
+        if (m_actionPanel.activeSelf == true)
+        {
+            //
+            m_actionButton = Instantiate(m_actionButton) as GameObject;
+            m_stats = m_actionButton.GetComponent<ActionButtonStats>();
 
-        m_stats.m_heroName.text = "Attack";
-        m_actionButton.GetComponent<Button>().onClick.AddListener( () => input1());
+            m_stats.m_heroName.text = "Attack";
+            m_actionButton.GetComponent<Button>().onClick.AddListener(() => input1());
 
-        m_actionButton.transform.SetParent(m_actionSpacer.transform, false);
-        m_atkBtns.Add(m_actionButton);
+            m_actionButton.transform.SetParent(m_actionSpacer.transform, false);
+            m_atkBtns.Add(m_actionButton);
+            //
+            m_magicButton = Instantiate(m_magicButton) as GameObject;
+            m_stats = m_magicButton.GetComponent<ActionButtonStats>();
 
-        m_magicButton = Instantiate(m_magicButton) as GameObject;
-        m_stats = m_magicButton.GetComponent<ActionButtonStats>();
+            m_stats.m_heroName.text = "Magic";
+            m_magicButton.GetComponent<Button>().onClick.AddListener(() => input3());
 
-        m_stats.m_heroName.text = "Magic";
-        //m_magicButton.GetComponent<Button>().onClick.AddListener(() => input1());
+            m_magicButton.transform.SetParent(m_actionSpacer.transform, false);
+            m_atkBtns.Add(m_magicButton);
+        }
 
-        m_magicButton.transform.SetParent(m_actionSpacer.transform, false);
-        m_atkBtns.Add(m_magicButton);
+      
+            
+        
+    }
+
+    void createSkillButtons()
+    {
+        if (m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_attacks.Count > 0)
+        {
+            foreach (BasicAttack attack in m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_attacks)
+            {
+                m_skillButton = Instantiate(m_skillButton) as GameObject;
+                m_statsM = m_skillButton.GetComponent<ActionButtonStats>();
+
+                Debug.Log(attack.m_attackName);
+                m_statsM.m_heroName.text = "" + attack.m_attackName;
+                SkillButton skb = m_skillButton.GetComponent<SkillButton>();
+
+                skb.m_skillAttackToPerform = attack;
+
+                m_skillButton.transform.SetParent(m_magicSpacer.transform, false);
+                m_atkBtns.Add(m_skillButton);
+            }
+        }
+        else
+        {
+            m_magicButton.GetComponent<Button>().interactable = false;
+        }
+    }
+
+    // Switching to Magic attacks
+    public void input3()
+    {
+        m_actionPanel.SetActive(false);
+        m_magicPanel.SetActive(true);
+        createSkillButtons();
+    }
+
+    //Choosen skill attack
+    public void input4(BasicAttack choosenSkill)
+    {
+        m_herosChoice.Attacker = m_heroToManage[0].name;
+        m_herosChoice.AttackingObject = m_heroToManage[0];
+        m_herosChoice.Type = "Hero";
+
+        m_herosChoice.m_choosenAttack = choosenSkill;
+        m_magicPanel.SetActive(false);
+
     }
 }
