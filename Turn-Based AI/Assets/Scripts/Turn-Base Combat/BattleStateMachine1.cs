@@ -56,6 +56,7 @@ public class BattleStateMachine1 : MonoBehaviour
         m_battleStates = PerformAction.WAIT;
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        m_heroInput = HeroGUI.ACTIVATE;
 
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
@@ -136,6 +137,8 @@ public class BattleStateMachine1 : MonoBehaviour
                 heroInputDone();
                 break;
         }
+
+        //Debug.Log(m_battleStates);
     }
 
     //
@@ -169,8 +172,12 @@ public class BattleStateMachine1 : MonoBehaviour
         m_herosChoice.Attacker = m_heroToManage[0].name;
         m_herosChoice.AttackingObject = m_heroToManage[0];
         m_herosChoice.Type = "Hero";
-        m_actionPanel.SetActive(false);
 
+        m_herosChoice.m_choosenAttack = m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_attacks[0];
+
+
+        m_actionPanel.SetActive(false);
+        m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
     }
 
     //
@@ -266,6 +273,6 @@ public class BattleStateMachine1 : MonoBehaviour
 
         m_herosChoice.m_choosenAttack = choosenSkill;
         m_magicPanel.SetActive(false);
-
+        m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
     }
 }

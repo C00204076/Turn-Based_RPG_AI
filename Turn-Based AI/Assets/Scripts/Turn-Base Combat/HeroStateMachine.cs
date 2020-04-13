@@ -45,6 +45,7 @@ public class HeroStateMachine : MonoBehaviour
     private HeroPanelStats m_stats;
     public GameObject m_heroPanel;
     private Transform m_heroPanelSpacer;
+
     
 
     // Start is called before the first frame update
@@ -83,12 +84,13 @@ public class HeroStateMachine : MonoBehaviour
             case TurnState.WAITING:
                 // idle
 
+                //Debug.Log("Waiting");
                 break;
             case TurnState.SELECTING:
 
                 break;
             case TurnState.ACTION:
-                //StartCoroutine(actionTime());
+                StartCoroutine(actionTime());
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -149,7 +151,7 @@ public class HeroStateMachine : MonoBehaviour
         // Wait
         yield return new WaitForSeconds(0.5f);
         // Do damage
-
+        doDamage();
         // Animate back to sart position
         Vector3 firstPos = m_startPos;
         /*while (moveTowardsStart(firstPos))
@@ -188,6 +190,12 @@ public class HeroStateMachine : MonoBehaviour
         }
     }
 
+    //
+    public void changeAction()
+    {
+        m_currentState = TurnState.ACTION;
+    }
+
     public void takeDamage(float damage)
     {
         m_hero.m_currentHP -= damage;
@@ -199,6 +207,15 @@ public class HeroStateMachine : MonoBehaviour
         }
 
         updateHeroPanel();
+    }
+
+    void doDamage()
+    {
+        float damageCal = m_hero.m_currentATK + m_bsm.m_performList[0].m_choosenAttack.m_attackDamage;
+
+        m_enemyTarget.GetComponent<EnemyStateMachine>().takeDamage(damageCal);
+
+        m_turnBar.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
     // Creates Hero Panel

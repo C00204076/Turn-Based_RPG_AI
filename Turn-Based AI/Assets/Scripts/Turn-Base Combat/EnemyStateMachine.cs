@@ -113,10 +113,10 @@ public class EnemyStateMachine : MonoBehaviour
         //
         int num = Random.Range(0, m_enemy.m_attacks.Count);
         attack.m_choosenAttack = m_enemy.m_attacks[num];
-        Debug.Log(this.gameObject.name + " has choosen " + 
-                  attack.m_choosenAttack.m_attackName + " and does " + 
+        Debug.Log(this.gameObject.name + " has choosen " +
+                  attack.m_choosenAttack.m_attackName + " and does " +
                   attack.m_choosenAttack.m_attackDamage + " damage!");
-        
+
 
         //
         m_bsm.collectActions(attack);
@@ -126,7 +126,7 @@ public class EnemyStateMachine : MonoBehaviour
     private IEnumerator actionTime()
     {
         // Break IEnumerator if action has already started
-        if(m_startedAct)
+        if (m_startedAct)
         {
             yield break;
         }
@@ -134,10 +134,10 @@ public class EnemyStateMachine : MonoBehaviour
         m_startedAct = true;
 
         // Animate enemy attacking hero, when near
-        Vector2 heroPos = new Vector2(m_heroTarget.transform.position.x, 
+        Vector2 heroPos = new Vector2(m_heroTarget.transform.position.x,
                                       m_heroTarget.transform.position.y);
         // Return null if true
-        while(moveTowardsHero(heroPos))
+        while (moveTowardsHero(heroPos))
         {
             yield return null;
         }
@@ -148,7 +148,7 @@ public class EnemyStateMachine : MonoBehaviour
         doDamage();
         // Animate back to sart position
         Vector3 firstPos = m_startPos;
-        while(moveTowardsStart(firstPos))
+        while (moveTowardsStart(firstPos))
         {
             yield return null;
         }
@@ -167,8 +167,8 @@ public class EnemyStateMachine : MonoBehaviour
     private bool moveTowardsHero(Vector3 target)
     {
         return target != (m_enemy.transform.position = Vector2.MoveTowards(
-            new Vector3(transform.position.x, transform.position.y, transform.position.z), 
-            new Vector3(target.x, target.y, target.z), 
+            new Vector3(transform.position.x, transform.position.y, transform.position.z),
+            new Vector3(target.x, target.y, target.z),
             m_animationSpeed * Time.deltaTime));
     }
 
@@ -176,7 +176,7 @@ public class EnemyStateMachine : MonoBehaviour
     {
         return target != (m_enemy.transform.position = Vector2.MoveTowards(
             new Vector3(transform.position.x, transform.position.y, transform.position.z),
-            new Vector3(target.x, target.y, target.z), 
+            new Vector3(target.x, target.y, target.z),
             m_animationSpeed * Time.deltaTime));
     }
 
@@ -192,4 +192,17 @@ public class EnemyStateMachine : MonoBehaviour
 
         m_heroTarget.GetComponent<HeroStateMachine>().takeDamage(calDamage);
     }
+
+    // 
+    public void takeDamage(float damage)
+    {
+        m_enemy.m_currentHP -= damage;
+
+        if (m_enemy.m_currentHP <= 0)
+        {
+            m_enemy.m_currentHP = 0;
+            m_currentState = TurnState.DEAD;
+        }
+    }
+
 }

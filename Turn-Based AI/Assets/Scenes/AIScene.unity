@@ -2173,19 +2173,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Evil Triangle
-  m_baseHP: 0
-  m_currentHP: 0
-  m_baseMP: 0
-  m_currentMP: 0
-  m_baseATK: 0
-  m_currentATK: 0
-  m_baseDEF: 0
-  m_currentDEF: 0
-  m_strength: 0
-  m_intelligence: 0
-  m_dexterity: 0
-  m_constitution: 0
-  m_agility: 0
+  m_baseHP: 2000
+  m_currentHP: 2000
+  m_baseMP: 200
+  m_currentMP: 200
+  m_baseATK: 35
+  m_currentATK: 35
+  m_baseDEF: 35
+  m_currentDEF: 35
+  m_strength: 35
+  m_intelligence: 35
+  m_dexterity: 35
+  m_constitution: 35
+  m_agility: 35
   m_enemyType: 0
   m_enemyDamage: 0
   m_attacks:
