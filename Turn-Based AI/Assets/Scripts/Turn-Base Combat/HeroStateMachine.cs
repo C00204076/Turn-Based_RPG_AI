@@ -120,7 +120,7 @@ public class HeroStateMachine : MonoBehaviour
                     // Change or play death animation
                     this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(100, 100, 100, 255);
                     // Reset heroInput
-                    m_bsm.m_heroInput = BattleStateMachine1.HeroGUI.ACTIVATE;
+                    m_bsm.m_battleStates = BattleStateMachine1.PerformAction.CHECKALIVE;
                     m_alive = false;           
                 }
 

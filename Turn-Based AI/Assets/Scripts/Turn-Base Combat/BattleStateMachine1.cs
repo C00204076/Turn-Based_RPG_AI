@@ -9,7 +9,10 @@ public class BattleStateMachine1 : MonoBehaviour
     {
         WAIT,
         TAKEACTION,
-        PERFORMACTION
+        PERFORMACTION,
+        CHECKALIVE,
+        WIN,
+        LOSE
     }
 
     public PerformAction m_battleStates;
@@ -112,8 +115,31 @@ public class BattleStateMachine1 : MonoBehaviour
 
                 break;
             case (PerformAction.PERFORMACTION):
+                // Idle
+                break;
+            case (PerformAction.CHECKALIVE):
+                // Lose battle
+                if (m_heroToManage.Count < 1)
+                {
+                    m_battleStates = PerformAction.LOSE;
+                }
+                // Win battle
+                else if (m_enemies.Count < 1)
+                {
+                    m_battleStates = PerformAction.WIN;
+                }
 
-
+                else 
+                {
+                    clearAttackPanel();
+                    m_heroInput = HeroGUI.ACTIVATE;
+                }
+                break;
+            case (PerformAction.WIN):
+                
+                break;
+            case (PerformAction.LOSE):
+                
                 break;
         }
 
@@ -192,14 +218,21 @@ public class BattleStateMachine1 : MonoBehaviour
     {
         m_performList.Add(m_herosChoice);
 
+        clearAttackPanel();
+
+        m_heroToManage.RemoveAt(0);
+        m_heroInput = HeroGUI.ACTIVATE;
+    }
+
+    void clearAttackPanel()
+    {
+        m_actionPanel.SetActive(false);
+        m_magicPanel.SetActive(false);
         foreach (GameObject atkBtn in m_atkBtns)
         {
             Destroy(atkBtn);
         }
         m_atkBtns.Clear();
-
-        m_heroToManage.RemoveAt(0);
-        m_heroInput = HeroGUI.ACTIVATE;
     }
 
     void createAttackButtons()
@@ -225,10 +258,6 @@ public class BattleStateMachine1 : MonoBehaviour
             m_magicButton.transform.SetParent(m_actionSpacer.transform, false);
             m_atkBtns.Add(m_magicButton);
         }
-
-      
-            
-        
     }
 
     void createSkillButtons()
