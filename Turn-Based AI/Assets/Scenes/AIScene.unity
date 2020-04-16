@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hero: {fileID: 1340934844}
   m_heroObject: {fileID: 1340934840}
-  m_enemyTarget: {fileID: 0}
+  m_enemyTarget: {fileID: 1818766278}
   m_currentState: 0
   m_heroPanel: {fileID: 2911364188604181263, guid: 573d8595b13a5794c937662938a98422,
     type: 3}
@@ -1768,6 +1768,8 @@ MonoBehaviour:
   - {fileID: 7357844257612743833, guid: fbeb1c2830adaf24d829fe33299939e4, type: 3}
   - {fileID: 1691216303096951722, guid: b11bd6a2576db134081db5aba94561c8, type: 3}
   - {fileID: 373378608195606164, guid: 8974f60ca68e8d845af269a9b6debbea, type: 3}
+  m_normalAttack: {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105,
+    type: 3}
 --- !u!1 &1482740044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2520,7 +2522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hero: {fileID: 2110743767}
   m_heroObject: {fileID: 2110743763}
-  m_enemyTarget: {fileID: 0}
+  m_enemyTarget: {fileID: 1818766278}
   m_currentState: 0
   m_heroPanel: {fileID: 2911364188604181263, guid: 573d8595b13a5794c937662938a98422,
     type: 3}
@@ -2553,6 +2555,8 @@ MonoBehaviour:
   m_attacks:
   - {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb, type: 3}
   - {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105, type: 3}
+  m_normalAttack: {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb,
+    type: 3}
 --- !u!1 &2137574595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,7 +2655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hero: {fileID: 2137574599}
   m_heroObject: {fileID: 2137574595}
-  m_enemyTarget: {fileID: 0}
+  m_enemyTarget: {fileID: 1818766278}
   m_currentState: 0
   m_heroPanel: {fileID: 2911364188604181263, guid: 573d8595b13a5794c937662938a98422,
     type: 3}
@@ -2683,3 +2687,5 @@ MonoBehaviour:
   m_agility: 45
   m_attacks:
   - {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f, type: 3}
+  m_normalAttack: {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f,
+    type: 3}

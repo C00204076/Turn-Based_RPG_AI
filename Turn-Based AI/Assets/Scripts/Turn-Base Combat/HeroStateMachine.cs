@@ -91,6 +91,7 @@ public class HeroStateMachine : MonoBehaviour
                 break;
             case TurnState.ACTION:
                 StartCoroutine(actionTime());
+                m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -110,15 +111,23 @@ public class HeroStateMachine : MonoBehaviour
                     // Reset GUI
                     //m_bsm.m_attackPanel.SetActive(false);
                     // Remove this item from preformList
-                    for (int i = 0; i < m_bsm.m_performList.Count; i++)
+                    if (m_bsm.m_heroes.Count > 0)
                     {
-                        if (m_bsm.m_performList[i].AttackingObject == this.gameObject)
+                        for (int i = 0; i < m_bsm.m_performList.Count; i++)
                         {
-                            m_bsm.m_performList.Remove(m_bsm.m_performList[i]);
+                            if (m_bsm.m_performList[i].AttackingObject == this.gameObject)
+                            {
+                                m_bsm.m_performList.Remove(m_bsm.m_performList[i]);
+                            }
+
+                            if (m_bsm.m_performList[i].Target == this.gameObject)
+                            {
+                                m_bsm.m_performList[i].Target = m_bsm.m_heroes[Random.Range(0, m_bsm.m_heroes.Count)];
+                            }
                         }
                     }
                     // Change or play death animation
-                    this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(100, 100, 100, 255);
+                    //this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(100, 100, 100, 255);
                     // Reset heroInput
                     m_bsm.m_battleStates = BattleStateMachine1.PerformAction.CHECKALIVE;
                     m_alive = false;           
@@ -140,8 +149,8 @@ public class HeroStateMachine : MonoBehaviour
         m_startedAct = true;
 
         // Animate enemy attacking hero, when near
-        Vector2 heroPos = new Vector2(m_enemyTarget.transform.position.x,
-                                      m_enemyTarget.transform.position.y);
+        /*Vector2 heroPos = new Vector2(m_enemyTarget.transform.position.x,
+                                      m_enemyTarget.transform.position.y);*/
         // Return null if true
         /*while (moveTowardsHero(heroPos))
         {
@@ -162,12 +171,21 @@ public class HeroStateMachine : MonoBehaviour
         // Remove performer from BSM list
         m_bsm.m_performList.RemoveAt(0);
         // Reset BSM -> Wait
-        m_bsm.m_battleStates = BattleStateMachine1.PerformAction.WAIT;
+        if (m_bsm.m_battleStates != BattleStateMachine1.PerformAction.WIN &&
+            m_bsm.m_battleStates != BattleStateMachine1.PerformAction.LOSE)
+        {
+            m_bsm.m_battleStates = BattleStateMachine1.PerformAction.WAIT;
+
+            // Reset this enemy state
+            //m_attackTime = 0.0f;
+            m_currentState = TurnState.PROCESSING;
+        }
+        else
+        {
+            m_currentState = TurnState.WAITING;
+        }
         // End of Coroutine
         m_startedAct = false;
-        // Reset this enemy state
-        //m_attackTime = 0.0f;
-        m_currentState = TurnState.PROCESSING;
     }
 
     //

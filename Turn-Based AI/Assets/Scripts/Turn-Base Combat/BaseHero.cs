@@ -59,4 +59,6 @@ public class BaseHero : MonoBehaviour
      public bool m_waterResist;*/
 
     public List<BasicAttack> m_attacks = new List<BasicAttack>();
+
+    public BasicAttack m_normalAttack;
 }

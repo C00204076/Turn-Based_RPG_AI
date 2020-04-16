@@ -38,7 +38,7 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject m_heroTarget;
     private float m_animationSpeed;
 
-
+    private bool m_alive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +66,10 @@ public class EnemyStateMachine : MonoBehaviour
                 updateTurnBarProgress();
                 break;
             case TurnState.CHOOSEACTION:
-                chooseAction();
+                if(m_bsm.m_heroes.Count > 0)
+                {
+                    chooseAction();
+                }
                 m_currentState = TurnState.ACTION;
                 break;
             case TurnState.WAITING:
@@ -74,10 +77,38 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
             case TurnState.ACTION:
                 StartCoroutine(actionTime());
-                //m_currentState = TurnState.PROCESSING;
+                m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
+                if(!m_alive)
+                {
+                    return;
+                }
 
+                else
+                {
+                    // Change Enemy tag
+                    this.gameObject.tag = "DeadEnemy";
+                    // Remove from State Machine
+                    m_bsm.m_enemies.Remove(this.gameObject);
+                    // Remove all inputs of Hero Atacks
+
+                    if (m_bsm.m_enemies.Count > 0)
+                    {
+                        for (int i = 0; i < m_bsm.m_performList.Count; i++)
+                        {
+                            if (m_bsm.m_performList[i].AttackingObject == this.gameObject)
+                            {
+                                m_bsm.m_performList.Remove(m_bsm.m_performList[i]);
+                            }
+                        }
+                    }
+                    //
+                    //this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(100, 100, 100, 255);
+                    //
+                    m_alive = false;
+                    m_bsm.m_battleStates = BattleStateMachine1.PerformAction.CHECKALIVE;
+                }
                 break;
         }
     }

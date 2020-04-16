@@ -136,10 +136,10 @@ public class BattleStateMachine1 : MonoBehaviour
                 }
                 break;
             case (PerformAction.WIN):
-                
+                Debug.Log("You lose!");
                 break;
             case (PerformAction.LOSE):
-                
+                Debug.Log("You Win!");
                 break;
         }
 
@@ -161,6 +161,11 @@ public class BattleStateMachine1 : MonoBehaviour
                 break;
             case (HeroGUI.DONE):
                 heroInputDone();
+
+                for(int i = 0; i < m_heroes.Count; i++)
+                {
+                    m_heroes[i].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.WAITING;
+                }
                 break;
         }
 
@@ -199,11 +204,12 @@ public class BattleStateMachine1 : MonoBehaviour
         m_herosChoice.AttackingObject = m_heroToManage[0];
         m_herosChoice.Type = "Hero";
 
-        m_herosChoice.m_choosenAttack = m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_attacks[0];
+        m_herosChoice.m_choosenAttack = m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_normalAttack;
 
 
         m_actionPanel.SetActive(false);
         m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
+        m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
     }
 
     //
@@ -303,5 +309,6 @@ public class BattleStateMachine1 : MonoBehaviour
         m_herosChoice.m_choosenAttack = choosenSkill;
         m_magicPanel.SetActive(false);
         m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
+        m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
     }
 }
