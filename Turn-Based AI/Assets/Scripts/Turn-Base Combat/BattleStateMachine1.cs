@@ -280,6 +280,7 @@ public class BattleStateMachine1 : MonoBehaviour
                 SkillButton skb = m_skillButton.GetComponent<SkillButton>();
 
                 skb.m_skillAttackToPerform = attack;
+                m_skillButton.GetComponent<Button>().onClick.AddListener(() => input4(skb.m_skillAttackToPerform));
 
                 m_skillButton.transform.SetParent(m_magicSpacer.transform, false);
                 m_atkBtns.Add(m_skillButton);
