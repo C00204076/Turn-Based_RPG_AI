@@ -46,7 +46,7 @@ public class HeroStateMachine : MonoBehaviour
     public GameObject m_heroPanel;
     private Transform m_heroPanelSpacer;
 
-    
+    float m_barSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +66,8 @@ public class HeroStateMachine : MonoBehaviour
         m_startPos = transform.position;
         //
         m_currentState = TurnState.PROCESSING;
+        //
+        m_barSpeed = m_hero.m_agility / 10000;
     }
 
     // Update is called once per frame
@@ -75,7 +77,6 @@ public class HeroStateMachine : MonoBehaviour
         {
             case TurnState.PROCESSING:
                 updateTurnBarProgress();
-                //m_currentState = TurnState.ADDTOLIST;
                 break;
             case TurnState.ADDTOLIST:
                 m_bsm.m_heroToManage.Add(m_heroObject);
@@ -83,7 +84,6 @@ public class HeroStateMachine : MonoBehaviour
                 break;
             case TurnState.WAITING:
                 // idle
-
                 //Debug.Log("Waiting");
                 break;
             case TurnState.SELECTING:
@@ -91,7 +91,7 @@ public class HeroStateMachine : MonoBehaviour
                 break;
             case TurnState.ACTION:
                 StartCoroutine(actionTime());
-                m_currentState = TurnState.PROCESSING;
+                //m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -156,7 +156,7 @@ public class HeroStateMachine : MonoBehaviour
         {
             yield return null;
         }*/
-
+        
         // Wait
         yield return new WaitForSeconds(0.5f);
         // Do damage
@@ -167,13 +167,15 @@ public class HeroStateMachine : MonoBehaviour
         {
             yield return null;
         }*/
-
+        
         // Remove performer from BSM list
         m_bsm.m_performList.RemoveAt(0);
+
         // Reset BSM -> Wait
         if (m_bsm.m_battleStates != BattleStateMachine1.PerformAction.WIN &&
             m_bsm.m_battleStates != BattleStateMachine1.PerformAction.LOSE)
         {
+            //Debug.Log("We're here");
             m_bsm.m_battleStates = BattleStateMachine1.PerformAction.WAIT;
 
             // Reset this enemy state
@@ -197,13 +199,16 @@ public class HeroStateMachine : MonoBehaviour
         {
             //
             m_turnBar.transform.localScale += new Vector3(0.009f, 0.0f, 0.0f);
-            //m_stats.m_progressBar.transform.localScale += new Vector3(0.009f, 0.0f, 0.0f);// = m_turnBar.transform.localScale
+            //m_turnBar.transform.localScale += new Vector3(m_barSpeed, 0.0f, 0.0f);
+            
         }
-        
+
 
         //
-        else
+        else if (m_barScale.x >= 0.98f)
         {
+            Debug.Log(m_barScale.x);
+            m_barScale.x = 0;
             m_currentState = TurnState.ADDTOLIST;
         }
     }

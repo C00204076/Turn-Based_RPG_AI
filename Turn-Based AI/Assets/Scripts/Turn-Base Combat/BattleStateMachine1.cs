@@ -18,10 +18,19 @@ public class BattleStateMachine1 : MonoBehaviour
     public PerformAction m_battleStates;
 
     public List<HandleTurn> m_performList = new List<HandleTurn>();
+    public List<HandleTurn> m_performHero = new List<HandleTurn>();
+    public List<HandleTurn> m_performEnemy = new List<HandleTurn>();
 
     //
     public List<GameObject> m_heroes = new List<GameObject>();
     public List<GameObject> m_enemies = new List<GameObject>();
+
+    //
+    public enum AIState
+    {
+        BT,
+        DT
+    }
 
     //
     public enum HeroGUI
@@ -38,6 +47,7 @@ public class BattleStateMachine1 : MonoBehaviour
     private ActionButtonStats m_statsM;
     //
     public HeroGUI m_heroInput;
+    public AIState m_aiState;
     //
     public List<GameObject> m_heroToManage = new List<GameObject>();
     private HandleTurn m_herosChoice;
@@ -53,6 +63,9 @@ public class BattleStateMachine1 : MonoBehaviour
     public GameObject m_magicSpacer;
     public GameObject m_skillButton;
 
+    //
+    //public List<GameObject> m_attackQueue = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,9 +73,12 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         m_heroInput = HeroGUI.ACTIVATE;
+        m_aiState = AIState.DT;
 
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
+
+        //m_attackQueue = m_heroToManage;
     }
 
     // Update is called once per frame
@@ -200,6 +216,7 @@ public class BattleStateMachine1 : MonoBehaviour
     //
     public void input1()
     {
+        
         m_herosChoice.Attacker = m_heroToManage[0].name;
         m_herosChoice.AttackingObject = m_heroToManage[0];
         m_herosChoice.Type = "Hero";
@@ -312,4 +329,20 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
         m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
     }
+
+
+    /*public void adjustHeroManage(GameObject oldHero)
+    {
+        //Debug.Log(m_q[0]);
+
+        //item = m_q[0];
+        //m_q.RemoveAt(0);
+        //m_q.Add(item);
+        //GameObject hero = oldHero;
+        //m_attackQueue.RemoveAt(0);
+        //m_attackQueue.Add(hero);
+        //m_heroes.RemoveAt(0);
+        //m_heroes.Add(hero);
+    }*/
+     
 }

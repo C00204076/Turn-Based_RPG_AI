@@ -29,11 +29,11 @@ public class BaseHero : MonoBehaviour
     public float m_currentDEF;
 
     // Stats/Attributes
-    public int m_strength; // Physical power
-    public int m_intelligence; // Magic power
-    public int m_dexterity; // Balance and critical rate
-    public int m_constitution; // HP and defense
-    public int m_agility; // Speed and dodge
+    public float m_strength; // Physical power
+    public float m_intelligence; // Magic power
+    public float m_dexterity; // Balance and critical rate
+    public float m_constitution; // HP and defense
+    public float m_agility; // Speed and dodge
 
     /* // Typing
      // Physical Damage

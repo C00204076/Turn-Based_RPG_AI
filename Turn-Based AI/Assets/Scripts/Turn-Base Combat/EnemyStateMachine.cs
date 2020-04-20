@@ -25,6 +25,8 @@ public class EnemyStateMachine : MonoBehaviour
         DEAD
     }
 
+    
+
     //
     public TurnState m_currentState;
     //
@@ -39,6 +41,8 @@ public class EnemyStateMachine : MonoBehaviour
     private float m_animationSpeed;
 
     private bool m_alive = true;
+
+    private bool m_firstAttack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +104,7 @@ public class EnemyStateMachine : MonoBehaviour
                             if (m_bsm.m_performList[i].AttackingObject == this.gameObject)
                             {
                                 m_bsm.m_performList.Remove(m_bsm.m_performList[i]);
+                                m_bsm.m_performEnemy.Remove(m_bsm.m_performEnemy[i]);
                             }
                         }
                     }
@@ -119,15 +124,26 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (m_attackTime < 1.0f)
         {
-            //
-            m_attackTime++;
+            if(m_firstAttack == false)
+            {
+                //
+                m_attackTime += 0.1f;
+            }
+            else
+            {
+                //
+                m_attackTime += 0.001f;
+            }
+            
         }
 
 
         //
-        else
+        else if (m_attackTime >= 1.0f)
         {
             m_currentState = TurnState.CHOOSEACTION;
+            m_attackTime = 0.0f;
+            m_firstAttack = true;
         }
     }
 
@@ -171,7 +187,7 @@ public class EnemyStateMachine : MonoBehaviour
         while (moveTowardsHero(heroPos))
         {
             yield return null;
-        }
+        }//*/
 
         // Wait
         yield return new WaitForSeconds(0.5f);
@@ -182,8 +198,10 @@ public class EnemyStateMachine : MonoBehaviour
         while (moveTowardsStart(firstPos))
         {
             yield return null;
-        }
+        }//
 
+        // Wait
+        //yield return new WaitForSeconds(4.5f);
         // Remove performer from BSM list
         m_bsm.m_performList.RemoveAt(0);
         // Reset BSM -> Wait
