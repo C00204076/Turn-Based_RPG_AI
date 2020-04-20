@@ -73,11 +73,11 @@ public class EnemyStateMachine : MonoBehaviour
                 m_currentState = TurnState.ACTION;
                 break;
             case TurnState.WAITING:
-
+                //Idling
                 break;
             case TurnState.ACTION:
                 StartCoroutine(actionTime());
-                m_currentState = TurnState.PROCESSING;
+                //m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -120,7 +120,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (m_attackTime < 1.0f)
         {
             //
-            m_attackTime++;
+            m_attackTime += 0.001f;
         }
 
 
@@ -179,10 +179,10 @@ public class EnemyStateMachine : MonoBehaviour
         doDamage();
         // Animate back to sart position
         Vector3 firstPos = m_startPos;
-        while (moveTowardsStart(firstPos))
+        /*while (moveTowardsStart(firstPos))
         {
             yield return null;
-        }
+        }*/
 
         // Remove performer from BSM list
         m_bsm.m_performList.RemoveAt(0);

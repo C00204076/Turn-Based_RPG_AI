@@ -1750,8 +1750,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Mage
-  m_baseHP: 90
-  m_currentHP: 90
+  m_baseHP: 1150
+  m_currentHP: 1150
   m_baseMP: 200
   m_currentMP: 200
   m_baseATK: 35
@@ -2175,8 +2175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Evil Triangle
-  m_baseHP: 2000
-  m_currentHP: 2000
+  m_baseHP: 50000
+  m_currentHP: 50000
   m_baseMP: 200
   m_currentMP: 200
   m_baseATK: 35
@@ -2539,8 +2539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Warrior
-  m_baseHP: 150
-  m_currentHP: 150
+  m_baseHP: 1500
+  m_currentHP: 1500
   m_baseMP: 60
   m_currentMP: 60
   m_baseATK: 40
@@ -2672,8 +2672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Thief
-  m_baseHP: 110
-  m_currentHP: 110
+  m_baseHP: 1200
+  m_currentHP: 1200
   m_baseMP: 60
   m_currentMP: 60
   m_baseATK: 30
