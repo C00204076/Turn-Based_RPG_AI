@@ -62,12 +62,14 @@ public class HeroStateMachine : MonoBehaviour
         m_turnBar.transform.localScale = new Vector3(0.0f, 1.0f, 1.0f);
         //
         m_bsm = GameObject.Find("BattleManager").GetComponent<BattleStateMachine1>();
-        //m_heroObject = GameObject.Find("Hero");
+        //
         m_startPos = transform.position;
         //
         m_currentState = TurnState.PROCESSING;
         //
         m_barSpeed = m_hero.m_agility / 10000;
+
+        
     }
 
     // Update is called once per frame
@@ -86,12 +88,8 @@ public class HeroStateMachine : MonoBehaviour
                 // idle
                 //Debug.Log("Waiting");
                 break;
-            case TurnState.SELECTING:
-
-                break;
             case TurnState.ACTION:
                 StartCoroutine(actionTime());
-                //m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -188,6 +186,7 @@ public class HeroStateMachine : MonoBehaviour
         }
         // End of Coroutine
         m_startedAct = false;
+        m_currentState = TurnState.PROCESSING;
     }
 
     //
@@ -235,7 +234,8 @@ public class HeroStateMachine : MonoBehaviour
     void doDamage()
     {
         float damageCal = m_hero.m_currentATK + m_bsm.m_performList[0].m_choosenAttack.m_attackDamage;
-
+        
+        m_enemyTarget = GameObject.Find("Enemy");
         m_enemyTarget.GetComponent<EnemyStateMachine>().takeDamage(damageCal);
 
         m_turnBar.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);

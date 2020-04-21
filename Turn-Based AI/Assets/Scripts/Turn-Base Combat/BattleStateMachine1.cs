@@ -65,7 +65,7 @@ public class BattleStateMachine1 : MonoBehaviour
     public GameObject m_skillButton;
 
     //
-    //public List<GameObject> m_attackQueue = new List<GameObject>();
+    public List<GameObject> m_attackQueue = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +79,7 @@ public class BattleStateMachine1 : MonoBehaviour
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
 
-        //m_attackQueue = m_heroToManage;
+        m_attackQueue = m_heroToManage;
     }
 
     // Update is called once per frame
@@ -185,8 +185,6 @@ public class BattleStateMachine1 : MonoBehaviour
                 }
                 break;
         }
-
-        //Debug.Log(m_battleStates);
     }
 
     //
@@ -195,24 +193,6 @@ public class BattleStateMachine1 : MonoBehaviour
         m_performList.Add(input);
     }
 
-    //
-    /*void enemyButtons()
-    {
-        foreach(GameObject enemy in m_enemies)
-        {
-            GameObject newBtn = Instantiate(m_enemyButton) as GameObject;
-            EnemySelectButton btn = newBtn.GetComponent<EnemySelectButton>();
-
-            EnemyStateMachine currentEnemy = enemy.GetComponent<EnemyStateMachine>();
-
-            //Text btnText = newBtn.transform.Find("Text").gameObject.GetComponent<Text>();
-            //btnText.text = currentEnemy.m_enemy.name;
-
-            //btn.EnemyPrefab = enemy;
-
-            newBtn.transform.SetParent(m_spacer);
-        }
-    }*/
 
     //
     public void input1()
@@ -226,8 +206,9 @@ public class BattleStateMachine1 : MonoBehaviour
 
 
         m_actionPanel.SetActive(false);
-        m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
         m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
+
+        collectActions(m_herosChoice);
     }
 
     //
@@ -327,8 +308,8 @@ public class BattleStateMachine1 : MonoBehaviour
 
         m_herosChoice.m_choosenAttack = choosenSkill;
         m_magicPanel.SetActive(false);
-        m_heroToManage[0].GetComponent<HeroStateMachine>().changeAction();
         m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
+        collectActions(m_herosChoice);
     }
 
 
