@@ -80,8 +80,9 @@ public class EnemyStateMachine : MonoBehaviour
 
                 break;
             case TurnState.ACTION:
-                StartCoroutine(actionTime());
-                m_currentState = TurnState.PROCESSING;
+                //StartCoroutine(actionTime());
+                actionTime();
+                //m_currentState = TurnState.PROCESSING;
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -164,19 +165,34 @@ public class EnemyStateMachine : MonoBehaviour
                   attack.m_choosenAttack.m_attackName + " and does " +
                   attack.m_choosenAttack.m_attackDamage + " damage!");
 
+        //
+        if(m_bsm.m_aiState == BattleStateMachine1.AIState.RANDOM)
+        {
+
+        }
+        //
+        else if (m_bsm.m_aiState == BattleStateMachine1.AIState.DT)
+        {
+
+        }
+        //
+        else if (m_bsm.m_aiState == BattleStateMachine1.AIState.BT)
+        {
+
+        }
 
         //
         m_bsm.collectActions(attack);
     }
 
-    //
-    private IEnumerator actionTime()
+    //IEnumerator
+    void actionTime()
     {
         // Break IEnumerator if action has already started
-        if (m_startedAct)
+        /*if (m_startedAct)
         {
             yield break;
-        }
+        }*/
 
         m_startedAct = true;
 
@@ -184,21 +200,21 @@ public class EnemyStateMachine : MonoBehaviour
         Vector2 heroPos = new Vector2(m_heroTarget.transform.position.x,
                                       m_heroTarget.transform.position.y);
         // Return null if true
-        while (moveTowardsHero(heroPos))
+        /*while (moveTowardsHero(heroPos))
         {
             yield return null;
         }//*/
 
         // Wait
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         // Do damage
         doDamage();
         // Animate back to sart position
         Vector3 firstPos = m_startPos;
-        while (moveTowardsStart(firstPos))
+        /*while (moveTowardsStart(firstPos))
         {
             yield return null;
-        }//
+        }//*/
 
         // Wait
         //yield return new WaitForSeconds(4.5f);

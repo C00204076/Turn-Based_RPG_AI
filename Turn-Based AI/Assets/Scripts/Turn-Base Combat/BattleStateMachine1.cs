@@ -28,8 +28,9 @@ public class BattleStateMachine1 : MonoBehaviour
     //
     public enum AIState
     {
-        BT,
-        DT
+        RANDOM,
+        DT,
+        BT
     }
 
     //
@@ -73,7 +74,7 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         m_heroInput = HeroGUI.ACTIVATE;
-        m_aiState = AIState.DT;
+        m_aiState = AIState.RANDOM;
 
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
