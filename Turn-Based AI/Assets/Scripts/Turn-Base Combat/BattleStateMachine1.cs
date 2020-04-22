@@ -153,10 +153,10 @@ public class BattleStateMachine1 : MonoBehaviour
                 }
                 break;
             case (PerformAction.WIN):
-                Debug.Log("You lose!");
+                Debug.Log("You Win!");
                 break;
             case (PerformAction.LOSE):
-                Debug.Log("You Win!");
+                Debug.Log("You Lose!");
                 break;
         }
 
@@ -209,6 +209,7 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
 
         collectActions(m_herosChoice);
+        m_heroInput = HeroGUI.DONE;
     }
 
     //
@@ -233,17 +234,24 @@ public class BattleStateMachine1 : MonoBehaviour
     {
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
+        
         foreach (GameObject atkBtn in m_atkBtns)
         {
+            
             Destroy(atkBtn);
         }
-        m_atkBtns.Clear();
+        
+        //m_atkBtns.Clear();
     }
 
     void createAttackButtons()
     {
         if (m_actionPanel.activeSelf == true)
         {
+            //
+            m_actionButton = GameObject.Find("ActionButton");
+            m_magicButton = GameObject.Find("ActionButton");
+
             //
             m_actionButton = Instantiate(m_actionButton) as GameObject;
             m_stats = m_actionButton.GetComponent<ActionButtonStats>();
@@ -269,6 +277,9 @@ public class BattleStateMachine1 : MonoBehaviour
     {
         if (m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_attacks.Count > 0)
         {
+            //
+            m_skillButton = GameObject.Find("SkillButton");
+
             foreach (BasicAttack attack in m_heroToManage[0].GetComponent<HeroStateMachine>().m_hero.m_attacks)
             {
                 m_skillButton = Instantiate(m_skillButton) as GameObject;
@@ -309,7 +320,9 @@ public class BattleStateMachine1 : MonoBehaviour
         m_herosChoice.m_choosenAttack = choosenSkill;
         m_magicPanel.SetActive(false);
         m_heroes[0].GetComponent<HeroStateMachine>().m_currentState = HeroStateMachine.TurnState.ACTION;
+
         collectActions(m_herosChoice);
+        m_heroInput = HeroGUI.DONE;
     }
 
 

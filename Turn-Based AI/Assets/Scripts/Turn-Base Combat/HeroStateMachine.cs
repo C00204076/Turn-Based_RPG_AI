@@ -86,10 +86,9 @@ public class HeroStateMachine : MonoBehaviour
                 break;
             case TurnState.WAITING:
                 // idle
-                //Debug.Log("Waiting");
                 break;
             case TurnState.ACTION:
-                StartCoroutine(actionTime());
+                actionTime();
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -136,13 +135,13 @@ public class HeroStateMachine : MonoBehaviour
     }
 
     //
-    private IEnumerator actionTime()
+    private void actionTime()
     {
         // Break IEnumerator if action has already started
-        if (m_startedAct)
+        /*if (m_startedAct)
         {
             yield break;
-        }
+        }*/
 
         m_startedAct = true;
 
@@ -156,7 +155,7 @@ public class HeroStateMachine : MonoBehaviour
         }*/
         
         // Wait
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         // Do damage
         doDamage();
         // Animate back to sart position
@@ -173,7 +172,6 @@ public class HeroStateMachine : MonoBehaviour
         if (m_bsm.m_battleStates != BattleStateMachine1.PerformAction.WIN &&
             m_bsm.m_battleStates != BattleStateMachine1.PerformAction.LOSE)
         {
-            //Debug.Log("We're here");
             m_bsm.m_battleStates = BattleStateMachine1.PerformAction.WAIT;
 
             // Reset this enemy state
@@ -206,16 +204,9 @@ public class HeroStateMachine : MonoBehaviour
         //
         else if (m_barScale.x >= 0.98f)
         {
-            Debug.Log(m_barScale.x);
             m_barScale.x = 0;
             m_currentState = TurnState.ADDTOLIST;
         }
-    }
-
-    //
-    public void changeAction()
-    {
-        m_currentState = TurnState.ACTION;
     }
 
     public void takeDamage(float damage)

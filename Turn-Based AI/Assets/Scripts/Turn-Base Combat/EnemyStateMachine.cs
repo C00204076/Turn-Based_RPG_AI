@@ -152,23 +152,21 @@ public class EnemyStateMachine : MonoBehaviour
     void chooseAction()
     {
         //
-        attack.Attacker = m_enemy.name;
-        attack.Type = "Enemy";
-        attack.AttackingObject = GameObject.Find("Enemy");
-        attack.Target = m_bsm.m_heroes[Random.Range(0, m_bsm.m_heroes.Count)];
-        setHeroTarget(attack.Target);
-
-        //
-        int num = Random.Range(0, m_enemy.m_attacks.Count);
-        attack.m_choosenAttack = m_enemy.m_attacks[num];
-        Debug.Log(this.gameObject.name + " has choosen " +
-                  attack.m_choosenAttack.m_attackName + " and does " +
-                  attack.m_choosenAttack.m_attackDamage + " damage!");
-
-        //
         if(m_bsm.m_aiState == BattleStateMachine1.AIState.RANDOM)
         {
+            //
+            attack.Attacker = m_enemy.name;
+            attack.Type = "Enemy";
+            attack.AttackingObject = GameObject.Find("Enemy");
+            attack.Target = m_bsm.m_heroes[Random.Range(0, m_bsm.m_heroes.Count)];
+            setHeroTarget(attack.Target);
 
+            //
+            int num = Random.Range(0, m_enemy.m_attacks.Count);
+            attack.m_choosenAttack = m_enemy.m_attacks[num];
+            Debug.Log(this.gameObject.name + " has choosen " +
+                      attack.m_choosenAttack.m_attackName + " and does " +
+                      attack.m_choosenAttack.m_attackDamage + " damage!");
         }
         //
         else if (m_bsm.m_aiState == BattleStateMachine1.AIState.DT)
