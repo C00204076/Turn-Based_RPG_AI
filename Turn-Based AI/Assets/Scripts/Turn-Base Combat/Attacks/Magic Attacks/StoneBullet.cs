@@ -13,7 +13,7 @@ public class StoneBullet : BasicAttack
 
         m_blunt = false;
         m_slash = false;
-        m_pierce = false;
+        m_pierce = true;
 
         m_fire = false;
         m_wind = false;

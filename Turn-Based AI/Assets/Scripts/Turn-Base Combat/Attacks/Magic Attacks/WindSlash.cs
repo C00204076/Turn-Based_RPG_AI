@@ -12,7 +12,7 @@ public class WindSlash : BasicAttack
         m_attackCost = 16.0f;
 
         m_blunt = false;
-        m_slash = false;
+        m_slash = true;
         m_pierce = false;
 
         m_fire = false;
