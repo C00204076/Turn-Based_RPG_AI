@@ -23,6 +23,9 @@ public class HeroStateMachine : MonoBehaviour
     //actionTime
     private bool m_startedAct = false;
     public GameObject m_enemyTarget;
+    private bool m_healing = false;
+    //
+    public GameObject lowPlayer;
 
     public enum TurnState
     {
@@ -75,6 +78,8 @@ public class HeroStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         switch (m_currentState)
         {
             case TurnState.PROCESSING:
@@ -224,12 +229,54 @@ public class HeroStateMachine : MonoBehaviour
 
     void doDamage()
     {
-        float damageCal = m_hero.m_currentATK + m_bsm.m_performList[0].m_choosenAttack.m_attackDamage;
         
-        m_enemyTarget = GameObject.Find("Enemy");
-        m_enemyTarget.GetComponent<EnemyStateMachine>().takeDamage(damageCal);
+        float damageCal = m_hero.m_currentATK + m_bsm.m_performList[0].m_choosenAttack.m_attackDamage;
 
+        if (m_bsm.m_performList[0].m_choosenAttack.m_attackName == "Guiding Light")
+        {
+            if (m_healing == false)
+            {
+                m_enemyTarget = m_bsm.m_heroes[Random.Range(0, m_bsm.m_heroes.Count)];
+                m_healing = true;
+            }
+
+            m_enemyTarget.GetComponent<HeroStateMachine>().heal(damageCal);
+        }
+        else if (m_bsm.m_performList[0].m_choosenAttack.m_attackName == "Blessed Water")
+        {
+            if (m_healing == false)
+            {
+                lowestHP();
+                m_enemyTarget = lowPlayer;
+                Debug.Log(m_enemyTarget);
+
+                m_healing = true;
+            }
+
+            m_enemyTarget.GetComponent<HeroStateMachine>().heal(damageCal);
+        }
+        else
+        {
+            m_enemyTarget = GameObject.Find("Enemy");
+            m_enemyTarget.GetComponent<EnemyStateMachine>().takeDamage(damageCal);
+        }
+
+        
         m_turnBar.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    //
+    void heal(float heal)
+    {
+        m_hero.m_currentHP += heal;
+
+        if(m_hero.m_currentHP > m_hero.m_baseHP)
+        {
+            m_hero.m_currentHP = m_hero.m_baseHP;
+        }
+
+        m_healing = false;
+        updateHeroPanel();
     }
 
     // Creates Hero Panel
@@ -253,4 +300,29 @@ public class HeroStateMachine : MonoBehaviour
         m_stats.m_heroHP.text = "HP: " + m_hero.m_currentHP;
         m_stats.m_heroMP.text = "MP: " + m_hero.m_currentMP;
     }
+
+    //
+    void lowestHP()
+    {
+        float lowHP = m_bsm.m_heroes[0].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+
+        foreach(GameObject a in m_bsm.m_heroes)
+        {
+            if(a.GetComponent<HeroStateMachine>().m_hero.m_currentHP <= lowHP)
+            {
+                lowHP = a.GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+                Debug.Log(lowHP);
+            }
+        }
+
+        for(int i = 0; i < m_bsm.m_heroes.Count; i++)
+        {
+            if(m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_currentHP == lowHP)
+            {
+                lowPlayer = m_bsm.m_heroes[i];
+                Debug.Log(lowPlayer);
+            }
+        }
+    }
+
 }

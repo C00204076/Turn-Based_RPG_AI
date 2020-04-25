@@ -24,6 +24,8 @@ public class BattleStateMachine1 : MonoBehaviour
     //
     public List<GameObject> m_heroes = new List<GameObject>();
     public List<GameObject> m_enemies = new List<GameObject>();
+    //
+    public List<float> m_heroHPs = new List<float>();
 
     //
     public enum AIState
@@ -78,6 +80,12 @@ public class BattleStateMachine1 : MonoBehaviour
 
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
+
+
+        for(int i = 0; i < m_heroes.Count; i++)
+        {
+            m_heroHPs.Add(m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_currentHP);
+        }
 
         m_attackQueue = m_heroToManage;
     }
@@ -185,6 +193,10 @@ public class BattleStateMachine1 : MonoBehaviour
                 }
                 break;
         }
+
+        m_heroHPs[0] = m_heroes[0].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+        m_heroHPs[1] = m_heroes[1].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+        m_heroHPs[2] = m_heroes[2].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
     }
 
     //
