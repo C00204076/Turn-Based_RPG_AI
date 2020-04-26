@@ -8,6 +8,7 @@ public class DTTarget : MonoBehaviour
     public string m_dtName;
 
     public bool m_dtCanHeal;
+
     public bool m_dtBluntWeak;
     public bool m_dtSlashWeak;
     public bool m_dtPierceWeak;

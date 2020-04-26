@@ -80,6 +80,9 @@ public class EnemyStateMachine : MonoBehaviour
 
         //
         setDTAttackData();
+        setBTAttackData();
+        setDTTargetData();
+        setBTTargetData();
         //Debug.Log(m_attackDTData[0].GetComponent<DTAttack>().m_dtDamage);
 
         switch (m_currentState)
@@ -561,6 +564,7 @@ public class EnemyStateMachine : MonoBehaviour
     //
     void setDTAttackData()
     {
+        //
         if (m_attackDTData.Count < 7)
         {
             for (int i = 0; i < 8; i++)
@@ -579,8 +583,50 @@ public class EnemyStateMachine : MonoBehaviour
                 m_dtAttack.GetComponent<DTAttack>().m_dtDamage = m_enemy.m_attacks[i].m_attackDamage;
                 m_dtAttack.GetComponent<DTAttack>().m_dtMP = m_enemy.m_attacks[i].m_attackCost;
                 m_dtAttack.GetComponent<DTAttack>().m_dtAttackPriority = 0;
-
+                //
                 m_attackDTData.Add(m_dtAttack.GetComponent<DTAttack>());
+            }
+        }
+    }
+
+    //
+    void setDTTargetData()
+    {
+        if (m_targetDTData.Count < 2)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                //
+                m_dtTarget.GetComponent<DTTarget>().m_dtName = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_name;
+
+                //
+                for(int j = 0; j < 4; j++)
+                {
+                    if(m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_attacks[j].m_attackName  == "Guiding Light" &&
+                       m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_attacks[j].m_attackName == "Blessed Water")
+                    {
+                        m_dtTarget.GetComponent<DTTarget>().m_dtCanHeal = true;
+                    }
+                    else
+                    {
+                        m_dtTarget.GetComponent<DTTarget>().m_dtCanHeal = false;
+                    }
+                }
+
+                //
+                m_dtTarget.GetComponent<DTTarget>().m_dtBluntWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_bluntWeak;
+                m_dtTarget.GetComponent<DTTarget>().m_dtSlashWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_slashWeak;
+                m_dtTarget.GetComponent<DTTarget>().m_dtPierceWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_pierceWeak;
+                m_dtTarget.GetComponent<DTTarget>().m_dtFireWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_fireWeak;
+                m_dtTarget.GetComponent<DTTarget>().m_dtWindWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_windWeak;
+                m_dtTarget.GetComponent<DTTarget>().m_dtEarthWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_earthWeak;
+                m_dtTarget.GetComponent<DTTarget>().m_dtWaterWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_waterWeak;
+                //
+                m_dtTarget.GetComponent<DTTarget>().m_dtTargetHP = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+                m_dtTarget.GetComponent<DTTarget>().m_dtTargetMP = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_currentMP;
+                m_dtTarget.GetComponent<DTTarget>().m_dtTargetPriority = 0;
+                //
+                m_targetDTData.Add(m_dtTarget.GetComponent<DTTarget>());
             }
         }
     }
@@ -588,9 +634,70 @@ public class EnemyStateMachine : MonoBehaviour
     //
     void setBTAttackData()
     {
-        for (int i = 0; i < m_enemy.m_attacks.Count - 1; i++)
+        //
+        if (m_attackBTData.Count < 7)
         {
+            for (int i = 0; i < 8; i++)
+            {
+                //
+                m_btAttack.GetComponent<BTAttack>().m_btName = m_enemy.m_attacks[i].m_attackName;
+                //
+                m_btAttack.GetComponent<BTAttack>().m_btBlunt = m_enemy.m_attacks[i].m_blunt;
+                m_btAttack.GetComponent<BTAttack>().m_btSlash = m_enemy.m_attacks[i].m_slash;
+                m_btAttack.GetComponent<BTAttack>().m_btPierce = m_enemy.m_attacks[i].m_pierce;
+                m_btAttack.GetComponent<BTAttack>().m_btFire = m_enemy.m_attacks[i].m_fire;
+                m_btAttack.GetComponent<BTAttack>().m_btWind = m_enemy.m_attacks[i].m_wind;
+                m_btAttack.GetComponent<BTAttack>().m_btEarth = m_enemy.m_attacks[i].m_earth;
+                m_btAttack.GetComponent<BTAttack>().m_btWater = m_enemy.m_attacks[i].m_water;
+                //
+                m_btAttack.GetComponent<BTAttack>().m_btDamage = m_enemy.m_attacks[i].m_attackDamage;
+                m_btAttack.GetComponent<BTAttack>().m_btMP = m_enemy.m_attacks[i].m_attackCost;
+                m_btAttack.GetComponent<BTAttack>().m_btAttackPriority = 0;
 
+                m_attackBTData.Add(m_btAttack.GetComponent<BTAttack>());
+            }
+        }
+    }
+
+    //
+    void setBTTargetData()
+    {
+        if (m_targetBTData.Count < 2)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                //
+                m_btTarget.GetComponent<BTTarget>().m_btName = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_name;
+
+                //
+                for (int j = 0; j < 4; j++)
+                {
+                    if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_attacks[j].m_attackName == "Guiding Light" &&
+                       m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_attacks[j].m_attackName == "Blessed Water")
+                    {
+                        m_btTarget.GetComponent<BTTarget>().m_btCanHeal = true;
+                    }
+                    else
+                    {
+                        m_btTarget.GetComponent<BTTarget>().m_btCanHeal = false;
+                    }
+                }
+
+                //
+                m_btTarget.GetComponent<BTTarget>().m_btBluntWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_bluntWeak;
+                m_btTarget.GetComponent<BTTarget>().m_btSlashWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_slashWeak;
+                m_btTarget.GetComponent<BTTarget>().m_btPierceWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_pierceWeak;
+                m_btTarget.GetComponent<BTTarget>().m_btFireWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_fireWeak;
+                m_btTarget.GetComponent<BTTarget>().m_btWindWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_windWeak;
+                m_btTarget.GetComponent<BTTarget>().m_btEarthWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_earthWeak;
+                m_btTarget.GetComponent<BTTarget>().m_btWaterWeak = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_waterWeak;
+                //
+                m_btTarget.GetComponent<BTTarget>().m_btTargetHP = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+                m_btTarget.GetComponent<BTTarget>().m_btTargetMP = m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_currentMP;
+                m_btTarget.GetComponent<BTTarget>().m_btTargetPriority = 0;
+                //
+                m_targetBTData.Add(m_btTarget.GetComponent<BTTarget>());
+            }
         }
     }
 
