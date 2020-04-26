@@ -1972,6 +1972,7 @@ MonoBehaviour:
   m_hero: {fileID: 1340934844}
   m_heroObject: {fileID: 1340934840}
   m_enemyTarget: {fileID: 1818766278}
+  lowPlayer: {fileID: 0}
   m_currentState: 0
   m_heroPanel: {fileID: 2911364188604181263, guid: 573d8595b13a5794c937662938a98422,
     type: 3}
@@ -2001,6 +2002,13 @@ MonoBehaviour:
   m_dexterity: 20
   m_constitution: 10
   m_agility: 15
+  m_bluntWeak: 0
+  m_slashWeak: 0
+  m_pierceWeak: 0
+  m_fireWeak: 0
+  m_windWeak: 0
+  m_earthWeak: 0
+  m_waterWeak: 0
   m_attacks:
   - {fileID: 4483360475157024796, guid: cfaa628d1cbc9364ab5726b9dca8f531, type: 3}
   - {fileID: 5042191339927823598, guid: 82fa23689d0d9b44e94497835c1cfc50, type: 3}
@@ -2283,6 +2291,7 @@ MonoBehaviour:
   m_performEnemy: []
   m_heroes: []
   m_enemies: []
+  m_heroHPs: []
   m_heroInput: 0
   m_aiState: 0
   m_heroToManage: []
@@ -2408,7 +2417,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemy: {fileID: 1818766282}
+  m_btAttack: {fileID: 5874417401357242883, guid: 7e61078e7cdfb1f408bba88af988c3fc,
+    type: 3}
+  m_btTarget: {fileID: 1750996091066405695, guid: 2dbc9330b60c9de4d9084b69889e8870,
+    type: 3}
+  m_dtAttack: {fileID: 2483484512179039283, guid: 3507e3477197f4c4db551eabc9316cb2,
+    type: 3}
+  m_dtTarget: {fileID: 3531091963198536822, guid: b24c85fa54ebc424499e7ba99c730226,
+    type: 3}
+  m_attackBTData: []
+  m_targetBTData: []
+  m_attackDTData: []
+  m_targetDTData: []
   m_currentState: 0
+  attack:
+    Attacker: 
+    Type: 
+    AttackingObject: {fileID: 0}
+    Target: {fileID: 0}
+    m_choosenAttack: {fileID: 0}
   m_heroTarget: {fileID: 0}
 --- !u!114 &1818766282
 MonoBehaviour:
@@ -2436,12 +2463,14 @@ MonoBehaviour:
   m_dexterity: 35
   m_constitution: 35
   m_agility: 35
-  m_enemyType: 0
-  m_enemyDamage: 0
   m_attacks:
   - {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105, type: 3}
   - {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb, type: 3}
   - {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f, type: 3}
+  - {fileID: 373378608195606164, guid: 8974f60ca68e8d845af269a9b6debbea, type: 3}
+  - {fileID: 7357844257612743833, guid: fbeb1c2830adaf24d829fe33299939e4, type: 3}
+  - {fileID: 1691216303096951722, guid: b11bd6a2576db134081db5aba94561c8, type: 3}
+  - {fileID: 4483360475157024796, guid: cfaa628d1cbc9364ab5726b9dca8f531, type: 3}
 --- !u!1 &1825252940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2527,7 +2556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1942956876}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Button deriving
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2803,6 +2832,7 @@ MonoBehaviour:
   m_hero: {fileID: 2110743767}
   m_heroObject: {fileID: 2110743763}
   m_enemyTarget: {fileID: 1818766278}
+  lowPlayer: {fileID: 0}
   m_currentState: 0
   m_heroPanel: {fileID: 2911364188604181263, guid: 573d8595b13a5794c937662938a98422,
     type: 3}
@@ -2832,6 +2862,13 @@ MonoBehaviour:
   m_dexterity: 11
   m_constitution: 22
   m_agility: 9
+  m_bluntWeak: 0
+  m_slashWeak: 0
+  m_pierceWeak: 0
+  m_fireWeak: 0
+  m_windWeak: 0
+  m_earthWeak: 0
+  m_waterWeak: 0
   m_attacks:
   - {fileID: 2039632887521999684, guid: c2e48a5d27c7e624e84d1bfa799df222, type: 3}
   - {fileID: 186271633793269129, guid: c970475f7c9a8134d8ae14833e636d38, type: 3}
@@ -2944,6 +2981,7 @@ MonoBehaviour:
   m_hero: {fileID: 2137574599}
   m_heroObject: {fileID: 2137574595}
   m_enemyTarget: {fileID: 1818766278}
+  lowPlayer: {fileID: 0}
   m_currentState: 0
   m_heroPanel: {fileID: 2911364188604181263, guid: 573d8595b13a5794c937662938a98422,
     type: 3}
@@ -2973,6 +3011,13 @@ MonoBehaviour:
   m_dexterity: 50
   m_constitution: 10
   m_agility: 45
+  m_bluntWeak: 0
+  m_slashWeak: 0
+  m_pierceWeak: 0
+  m_fireWeak: 0
+  m_windWeak: 0
+  m_earthWeak: 0
+  m_waterWeak: 0
   m_attacks:
   - {fileID: 83453300450857872, guid: 03da6a3db5553c340827d8768b04d949, type: 3}
   - {fileID: 8073621351488561947, guid: 8299175ce10adf14387c6eb0bd01de26, type: 3}

@@ -35,28 +35,19 @@ public class BaseHero : MonoBehaviour
     public float m_constitution; // HP and defense
     public float m_agility; // Speed and dodge
 
-    /* // Typing
+     // Typing
      // Physical Damage
-     // Immune
-     public bool m_bluntImmune;
-     public bool m_slashImmune;
-     public bool m_pierceImmune;
-     // Resist
-     public bool m_bluntResist;
-     public bool m_slashResist;
-     public bool m_pierceResist;
+     // Weakness
+     public bool m_bluntWeak;
+     public bool m_slashWeak;
+     public bool m_pierceWeak;
 
      // Magic Damage
-     // Immune
-     public bool m_fireImmune;
-     public bool m_windImmune;
-     public bool m_earthImmune;
-     public bool m_waterImmune;
-     // Resist
-     public bool m_fireResist;
-     public bool m_windResist;
-     public bool m_earthResist;
-     public bool m_waterResist;*/
+     // Weakness
+     public bool m_fireWeak;
+     public bool m_windWeak;
+     public bool m_earthWeak;
+     public bool m_waterWeak;
 
     public List<BasicAttack> m_attacks = new List<BasicAttack>();
 

@@ -55,24 +55,5 @@ public class BaseEnemy : MonoBehaviour
     public bool m_earthResist;
     public bool m_waterResist;*/
 
-    public enum Type
-    {
-        FIRE,
-        WATER,
-        WIND,
-        EARTH
-    }
-
-    public Type m_enemyType;
-
-    public enum Damage
-    {
-        BLUNT,
-        SLASH,
-        PIERCE
-    }
-
-    public Damage m_enemyDamage;
-
     public List<BasicAttack> m_attacks = new List<BasicAttack>();
 }

@@ -214,6 +214,19 @@ public class HeroStateMachine : MonoBehaviour
         }
     }
 
+    //
+    public void manaCost(float cost)
+    {
+        m_hero.m_currentMP -= cost;
+
+        if (m_hero.m_currentMP <= 0)
+        {
+            m_hero.m_currentMP = 0;
+        }
+
+        updateHeroPanel();
+    }
+
     public void takeDamage(float damage)
     {
         m_hero.m_currentHP -= damage;
@@ -231,6 +244,7 @@ public class HeroStateMachine : MonoBehaviour
     {
         
         float damageCal = m_hero.m_currentATK + m_bsm.m_performList[0].m_choosenAttack.m_attackDamage;
+        //manaCost(m_bsm.m_performList[0].m_choosenAttack.m_attackCost);
 
         if (m_bsm.m_performList[0].m_choosenAttack.m_attackName == "Guiding Light")
         {
@@ -261,7 +275,6 @@ public class HeroStateMachine : MonoBehaviour
             m_enemyTarget.GetComponent<EnemyStateMachine>().takeDamage(damageCal);
         }
 
-        
         m_turnBar.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
     }
 

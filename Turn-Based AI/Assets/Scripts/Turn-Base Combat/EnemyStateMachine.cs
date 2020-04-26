@@ -25,7 +25,20 @@ public class EnemyStateMachine : MonoBehaviour
         DEAD
     }
 
-    
+    //
+    public GameObject m_btAttack;
+    public GameObject m_btTarget;
+    public GameObject m_dtAttack;
+    public GameObject m_dtTarget;
+
+    //
+    public List<BTAttack> m_attackBTData = new List<BTAttack>();
+    //
+    public List<BTTarget> m_targetBTData = new List<BTTarget>();
+    //
+    public List<DTAttack> m_attackDTData = new List<DTAttack>();
+    //
+    public List<DTTarget> m_targetDTData = new List<DTTarget>();
 
     //
     public TurnState m_currentState;
@@ -34,7 +47,7 @@ public class EnemyStateMachine : MonoBehaviour
     //
     private Vector3 m_startPos;
     //
-    private HandleTurn attack;
+    public HandleTurn attack;
     //actionTime
     private bool m_startedAct = false;
     public GameObject m_heroTarget;
@@ -64,25 +77,41 @@ public class EnemyStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //
+        setDTAttackData();
+        //Debug.Log(m_attackDTData[0].GetComponent<DTAttack>().m_dtDamage);
+
         switch (m_currentState)
         {
             case TurnState.PROCESSING:
                 updateTurnBarProgress();
+
+                if (m_enemy.m_currentMP <= 0)
+                {
+                    m_enemy.m_currentMP = 0;
+                }
+                else if (m_enemy.m_currentMP >= m_enemy.m_baseMP)
+                {
+                    m_enemy.m_currentMP = m_enemy.m_baseMP;
+                }
+
                 break;
             case TurnState.CHOOSEACTION:
                 if(m_bsm.m_heroes.Count > 0)
                 {
                     chooseAction();
                 }
+                m_enemy.m_currentMP += 2;
                 m_currentState = TurnState.ACTION;
                 break;
             case TurnState.WAITING:
-
+                // Idling
                 break;
             case TurnState.ACTION:
-                //StartCoroutine(actionTime());
                 actionTime();
-                //m_currentState = TurnState.PROCESSING;
+                // Reset attack data
+                attack = null;
                 break;
             case TurnState.DEAD:
                 if(!m_alive)
@@ -186,36 +215,17 @@ public class EnemyStateMachine : MonoBehaviour
     //IEnumerator
     void actionTime()
     {
-        // Break IEnumerator if action has already started
-        /*if (m_startedAct)
-        {
-            yield break;
-        }*/
-
         m_startedAct = true;
 
         // Animate enemy attacking hero, when near
         Vector2 heroPos = new Vector2(m_heroTarget.transform.position.x,
                                       m_heroTarget.transform.position.y);
-        // Return null if true
-        /*while (moveTowardsHero(heroPos))
-        {
-            yield return null;
-        }//*/
 
-        // Wait
-        //yield return new WaitForSeconds(0.5f);
         // Do damage
         doDamage();
         // Animate back to sart position
         Vector3 firstPos = m_startPos;
-        /*while (moveTowardsStart(firstPos))
-        {
-            yield return null;
-        }//*/
 
-        // Wait
-        //yield return new WaitForSeconds(4.5f);
         // Remove performer from BSM list
         m_bsm.m_performList.RemoveAt(0);
         // Reset BSM -> Wait
@@ -253,6 +263,8 @@ public class EnemyStateMachine : MonoBehaviour
     {
         float calDamage = m_enemy.m_currentATK + m_bsm.m_performList[0].m_choosenAttack.m_attackDamage;
 
+        manaCost(m_bsm.m_performList[0].m_choosenAttack.m_attackCost);
+
         m_heroTarget.GetComponent<HeroStateMachine>().takeDamage(calDamage);
     }
 
@@ -268,4 +280,319 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+    //
+    public void manaCost(float cost)
+    {
+        m_enemy.m_currentMP -= cost;
+
+        if (m_enemy.m_currentMP <= 0)
+        {
+            m_enemy.m_currentMP = 0;
+        }
+    }
+
+
+
+    // Decision Tree
+    //
+
+    //
+
+
+
+
+    // Behaviour Tree
+    //
+    // Hero targeting
+    private NodeStates isAlive()
+    {
+        for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+        {
+
+        }
+
+        //
+        if (m_heroTarget == null)
+        {
+
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates lowestHP()
+    {
+        float lowHP = m_bsm.m_heroes[0].GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+
+        if (m_heroTarget == null)
+        {
+            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            {
+                foreach (GameObject a in m_bsm.m_heroes)
+                {
+                    if (a.GetComponent<HeroStateMachine>().m_hero.m_currentHP <= lowHP)
+                    {
+                        lowHP = a.GetComponent<HeroStateMachine>().m_hero.m_currentHP;
+                    }
+                }
+
+                // If lowest equal to base HP(maximum) of any of the heroes
+                if (lowHP == m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_baseHP)
+                {
+                    return NodeStates.FAILURE;
+                }
+            }
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates lowestMP()
+    {
+        float lowMP = m_bsm.m_heroes[0].GetComponent<HeroStateMachine>().m_hero.m_currentMP;
+
+
+        if (m_heroTarget == null)
+        {
+            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            {
+                foreach (GameObject a in m_bsm.m_heroes)
+                {
+                    if (a.GetComponent<HeroStateMachine>().m_hero.m_currentHP <= lowMP)
+                    {
+                        lowMP = a.GetComponent<HeroStateMachine>().m_hero.m_currentMP;
+                    }
+                }
+
+                // If lowest equal to base HP(maximum) of any of the heroes
+                if (lowMP == m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_baseMP)
+                {
+                    return NodeStates.FAILURE;
+                }
+            }
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates canHeal()
+    {
+        //
+        if (m_heroTarget == null)
+        {
+            
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates selectTarget()
+    {
+        //
+        if (m_heroTarget == null)
+        {
+
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+
+    // Attack decision
+    private NodeStates currentMP()
+    {
+        //
+        if (attack.m_choosenAttack == null)
+        {
+            for (int i = 0; i < m_enemy.m_attacks.Count; i++)
+            {
+
+            }
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates whatWeakness()
+    {
+        //
+        if (attack.m_choosenAttack == null)
+        {
+            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            {
+                //
+                if(m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_bluntWeak == true)
+                {
+
+                }
+
+                //
+                else if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_slashWeak == true)
+                {
+
+                }
+
+                //
+                else if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_pierceWeak == true)
+                {
+
+                }
+
+                //
+                else if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_fireWeak == true)
+                {
+
+                }
+
+                //
+                else if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_windWeak == true)
+                {
+
+                }
+
+                //
+                else if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_earthWeak == true)
+                {
+
+                }
+
+                //
+                else if (m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_waterWeak == true)
+                {
+
+                }
+            }
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates powerVHP()
+    {
+        //
+        if (attack.m_choosenAttack == null)
+        {
+            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            {
+                for(int j =0; j < m_enemy.m_attacks.Count; j++)
+                {
+
+                }
+            }
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    private NodeStates selectAttack()
+    {
+        //
+        if (attack.m_choosenAttack == null)
+        {
+            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            {
+                for (int j = 0; j < m_enemy.m_attacks.Count; j++)
+                {
+
+                }
+            }
+        }
+
+        //
+        else
+        {
+            return NodeStates.SUCCESS;
+        }
+
+        return NodeStates.SUCCESS;
+    }
+
+    //
+
+    //
+    //
+    void setDTAttackData()
+    {
+        if (m_attackDTData.Count < 7)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                //
+                m_dtAttack.GetComponent<DTAttack>().m_dtName = m_enemy.m_attacks[i].m_attackName;
+                //
+                m_dtAttack.GetComponent<DTAttack>().m_dtBlunt = m_enemy.m_attacks[i].m_blunt;
+                m_dtAttack.GetComponent<DTAttack>().m_dtSlash = m_enemy.m_attacks[i].m_slash;
+                m_dtAttack.GetComponent<DTAttack>().m_dtPierce = m_enemy.m_attacks[i].m_pierce;
+                m_dtAttack.GetComponent<DTAttack>().m_dtFire = m_enemy.m_attacks[i].m_fire;
+                m_dtAttack.GetComponent<DTAttack>().m_dtWind = m_enemy.m_attacks[i].m_wind;
+                m_dtAttack.GetComponent<DTAttack>().m_dtEarth = m_enemy.m_attacks[i].m_earth;
+                m_dtAttack.GetComponent<DTAttack>().m_dtWater = m_enemy.m_attacks[i].m_water;
+                //
+                m_dtAttack.GetComponent<DTAttack>().m_dtDamage = m_enemy.m_attacks[i].m_attackDamage;
+                m_dtAttack.GetComponent<DTAttack>().m_dtMP = m_enemy.m_attacks[i].m_attackCost;
+                m_dtAttack.GetComponent<DTAttack>().m_dtAttackPriority = 0;
+
+                m_attackDTData.Add(m_dtAttack.GetComponent<DTAttack>());
+            }
+        }
+    }
+
+    //
+    void setBTAttackData()
+    {
+        for (int i = 0; i < m_enemy.m_attacks.Count - 1; i++)
+        {
+
+        }
+    }
+
+    //
 }
