@@ -48,7 +48,7 @@ public class EnemyStateMachine : MonoBehaviour
     public List<DTAttack> m_attackDTData = new List<DTAttack>();
     //
     public List<DTTarget> m_targetDTData = new List<DTTarget>();
-    //public GameObject m_dtTargetObject = new GameObject();
+    public DTTarget m_dtTargetObject = new DTTarget();
     //
 
 
@@ -397,8 +397,7 @@ public class EnemyStateMachine : MonoBehaviour
     //
     public abstract class Decision
     {
-        public abstract void evaluate(DTAttack client);
-        public abstract void evaluate(DTTarget client);
+        public abstract void evaluate(DTTarget target);
     }
 
     //
@@ -407,112 +406,190 @@ public class EnemyStateMachine : MonoBehaviour
         public string title { get; set; }
         public Decision positive { get; set; }
         public Decision negative { get; set; }
-        public System.Func<DTAttack, bool> attackTest { get; set; }
         public System.Func<DTTarget, bool> targetTest { get; set; }
 
-        public override void evaluate(DTAttack client)
+        public override void evaluate(DTTarget target)
         {
-            bool result = this.attackTest(client);
+            bool result = this.targetTest(target);
+
+            Debug.Log(this.title);
 
             if (result)
             {
-                this.positive.evaluate(client);
+                this.positive.evaluate(target);
             }
             else
             {
-                this.negative.evaluate(client);
+                this.negative.evaluate(target);
             }
         }
 
-        public override void evaluate(DTTarget client)
-        {
-            bool result = this.targetTest(client);
-
-            if (result)
-            {
-                this.positive.evaluate(client);
-                client.m_dtTargetPriority += 1;
-            }
-            else 
-            { 
-                this.negative.evaluate(client); 
-            }
-        }
     }
 
     //
     public class DecisionResult : Decision
     {
         public bool result { get; set; }
-        public override void evaluate(DTAttack client)
-        {
-
-        }
-
-        public override void evaluate(DTTarget client)
+        public override void evaluate(DTTarget target)
         {
 
         }
     }
 
     //
-    private static DecisionQuery targetDecisionTree()
+    private DecisionQuery targetDecisionTree()
     {
-        //Decision 4
-        /*var creditBranch = new DecisionQuery
+        
+         
+        //Decision 9
+        var waterWeak = new DecisionQuery
         {
-            Title = "Use credit card",
-            Test = (client) => client.UsesCreditCard,
-            Positive = new DecisionResult { Result = true },
-            Negative = new DecisionResult { Result = false }
+            title = "Finding Water weakness",
+            targetTest = (target) => target.m_dtWaterWeak = true,
+            positive = new DecisionResult { result = true },
+            negative = new DecisionResult { result = false }
         };
 
-        //Decision 3
-        var selectTarget = new DecisionQuery
+        //Decision 8
+        var earthWeak = new DecisionQuery
         {
-            Title = "Have more than 3 years experience",
-            Test = (client) => client.YearsInJob > 3,
-            Positive = creditBranch,
-            Negative = new DecisionResult { Result = false }
+            title = "Finding Earth weakness",
+            targetTest = (target) => target.m_dtEarthWeak = true,
+            positive = waterWeak,
+            negative = waterWeak
         };
+
+        //Decision 7
+        var windWeak = new DecisionQuery
+        {
+            title = "Finding Wind weakness",
+            targetTest = (target) => target.m_dtWindWeak = true,
+            positive = earthWeak,
+            negative = earthWeak
+        };
+
+        //Decision 6
+        var fireWeak = new DecisionQuery
+        {
+            title = "Finding Fire weakness",
+            targetTest = (target) => target.m_dtFireWeak = true,
+            positive = windWeak,
+            negative = windWeak
+        };
+        
+        //Decision 5
+        var pierceWeak = new DecisionQuery
+        {
+            title = "Finding Pierce weakness",
+            targetTest = (target) => target.m_dtPierceWeak = true,
+            positive = fireWeak,
+            negative = fireWeak
+        };
+
+        //Decision 4
+        var slashWeak = new DecisionQuery
+        {
+            title = "Finding Slash weakness",
+            targetTest = (target) => target.m_dtSlashWeak = true,
+            positive = pierceWeak,
+            negative = pierceWeak
+        };
+
+
+        //Decision 3
+        var bluntWeak = new DecisionQuery
+        {
+            title = "Finding Blunt weakness",
+            targetTest = (target) => target.m_dtBluntWeak = true,
+            positive = slashWeak,
+            negative = slashWeak
+        };
+   
+         
 
 
         //Decision 2
         var canHeal = new DecisionQuery
         {
-            Title = "Earn more than 40k per year",
-            Test = (client) => client.Income > 40000,
-            Positive = selectTarget,
-            Negative = selectTarget
+            title = "Finding if they can heal",
+            targetTest = (target) => target.m_dtCanHeal = true,
+            positive = bluntWeak,
+            negative = bluntWeak
         };
 
         //Decision 1
         var lowestMP = new DecisionQuery
         {
-            Title = "Have a criminal record",
-            Test = (client) => client.CriminalRecord,
-            Positive = selectTarget,
-            Negative = selectTarget
-        };*/
+            title = "Finding lowest MP",
+            targetTest = (target) => target.m_lowMP = true,
+            positive = new DecisionResult { result = true },
+            negative = canHeal
+        };
 
         //Decision 0
         var lowestHP = new DecisionQuery
         {
             title = "Finding lowest HP",
-            //(client) => client.m_lowHPfound = dtLowHP(),
-            targetTest = (client) => client.m_lowHP == true,
-            //positive = canHeal,
-            //negative = lowestMP
+            targetTest = (target) => target.m_lowHP = true,
+            positive = canHeal,
+            negative = lowestMP
         };
 
         return lowestHP;
     }
 
+
     //
-    private static DecisionQuery attackDecisionTree()
+    public abstract class DecisionTwo
+    {
+        public abstract void evaluate(DTAttack attack);
+    }
+
+    //
+    public class DecisionQueryTwo : DecisionTwo
+    {
+        public string title { get; set; }
+        public DecisionTwo positive { get; set; }
+        public DecisionTwo negative { get; set; }
+        public System.Func<DTAttack, bool> attackTest { get; set; }
+        public System.Func<DTTarget, bool> targetTest { get; set; }
+        
+
+        public override void evaluate(DTAttack attack)
+        {
+
+            bool result = this.attackTest(attack);
+
+
+            Debug.Log(this.title);
+
+            if (result)
+            {
+                this.positive.evaluate(attack);
+            }
+            else
+            {
+                this.negative.evaluate(attack);
+            }
+        }
+
+    }
+
+    //
+    public class DecisionResultTwo : DecisionTwo
+    {
+        public bool result { get; set; }
+        public override void evaluate(DTAttack attack)
+        {
+
+        }
+    }
+
+    //
+    private DecisionQueryTwo attackDecisionTree()
     {
         //Decision 4
-        /*var creditBranch = new DecisionQuery
+        /*var creditBranch = new DecisionQueryTwo
         {
             Title = "Use credit card",
             Test = (client) => client.UsesCreditCard,
@@ -521,40 +598,33 @@ public class EnemyStateMachine : MonoBehaviour
         };
 
         //Decision 3
-        var experienceBranch = new DecisionQuery
+        var experienceBranch = new DecisionQueryTwo
         {
             Title = "Have more than 3 years experience",
             Test = (client) => client.YearsInJob > 3,
             Positive = creditBranch,
             Negative = new DecisionResult { Result = false }
-        };
+        };*/
 
 
         //Decision 2
-        var moneyBranch = new DecisionQuery
+        var useBlunt = new DecisionQueryTwo
         {
-            Title = "Earn more than 40k per year",
-            Test = (client) => client.Income > 40000,
-            Positive = experienceBranch,
-            Negative = new DecisionResult { Result = false }
+            title = "Use Blunt",
+            attackTest = (attack) => attack.m_dtBlunt = m_dtTargetObject.m_dtBluntWeak,
+            //positive = experienceBranch,
+            negative = new DecisionResultTwo { result = false }
         };
-
-        //Decision 1
-        var attackVHP = new DecisionQuery
-        {
-            Title = "Have a criminal record",
-            Test = (client) => client.CriminalRecord,
-            Positive = new DecisionResult { Result = false },
-            Negative = moneyBranch
-        };*/
+        
+        
 
         //Decision 0
-        var currentMP = new DecisionQuery
+        var currentMP = new DecisionQueryTwo
         {
-            title = "Want a loan",
-            //targetTest = (client) => client.IsLoanNeeded,
-            //positive = criminalBranch,
-            //negative = new DecisionResult { result = false }
+            title = "Checking if there is enough MP",
+            attackTest = (attack) => attack.m_dtMP < m_enemy.m_currentMP,
+            positive = useBlunt,
+            negative = new DecisionResultTwo { result = false }
         };
 
         return currentMP;
