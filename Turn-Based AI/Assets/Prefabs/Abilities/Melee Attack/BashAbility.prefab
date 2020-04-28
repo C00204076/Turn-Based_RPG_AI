@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1407579504771599683}
   - component: {fileID: 7151577337568314912}
+  - component: {fileID: -7319773066120677067}
+  - component: {fileID: -8006455923235816345}
   m_Layer: 0
   m_Name: BashAbility
   m_TagString: Untagged
@@ -54,3 +56,51 @@ MonoBehaviour:
   m_wind: 0
   m_earth: 0
   m_water: 0
+--- !u!114 &-7319773066120677067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120392634213237945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Bash
+  m_cantUse: 0
+  m_dtBlunt: 1
+  m_dtSlash: 0
+  m_dtPierce: 0
+  m_dtFire: 0
+  m_dtWind: 0
+  m_dtEarth: 0
+  m_dtWater: 0
+  m_dtDamage: 3
+  m_dtMP: 0
+  m_dtAttackPriority: 0
+--- !u!114 &-8006455923235816345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120392634213237945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Bash
+  m_cantUse: 0
+  m_btBlunt: 1
+  m_btSlash: 0
+  m_btPierce: 0
+  m_btFire: 0
+  m_btWind: 0
+  m_btEarth: 0
+  m_btWater: 0
+  m_btDamage: 3
+  m_btMP: 0
+  m_btAttackPriority: 0

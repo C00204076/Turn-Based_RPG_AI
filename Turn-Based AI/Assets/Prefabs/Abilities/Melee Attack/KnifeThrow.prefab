@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6381910617905722569}
   - component: {fileID: 5886787597368303584}
+  - component: {fileID: -6510582278046141124}
+  - component: {fileID: 7022051809915294155}
   m_Layer: 0
   m_Name: KnifeThrow
   m_TagString: Untagged
@@ -54,3 +56,51 @@ MonoBehaviour:
   m_wind: 0
   m_earth: 0
   m_water: 0
+--- !u!114 &-6510582278046141124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6925181740659129626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Knife Throw
+  m_cantUse: 0
+  m_dtBlunt: 0
+  m_dtSlash: 0
+  m_dtPierce: 1
+  m_dtFire: 0
+  m_dtWind: 0
+  m_dtEarth: 0
+  m_dtWater: 0
+  m_dtDamage: 15
+  m_dtMP: 5
+  m_dtAttackPriority: 0
+--- !u!114 &7022051809915294155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6925181740659129626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Knife Throw
+  m_cantUse: 0
+  m_btBlunt: 0
+  m_btSlash: 0
+  m_btPierce: 0
+  m_btFire: 0
+  m_btWind: 0
+  m_btEarth: 0
+  m_btWater: 0
+  m_btDamage: 15
+  m_btMP: 5
+  m_btAttackPriority: 0

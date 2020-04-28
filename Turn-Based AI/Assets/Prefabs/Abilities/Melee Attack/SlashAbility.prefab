@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5256211232535753950}
   - component: {fileID: 1894055720360473041}
+  - component: {fileID: -6896612399543922229}
+  - component: {fileID: -1950564374643416530}
   m_Layer: 0
   m_Name: SlashAbility
   m_TagString: Untagged
@@ -54,3 +56,51 @@ MonoBehaviour:
   m_wind: 0
   m_earth: 0
   m_water: 0
+--- !u!114 &-6896612399543922229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962021608736324873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Slash
+  m_cantUse: 0
+  m_dtBlunt: 0
+  m_dtSlash: 1
+  m_dtPierce: 0
+  m_dtFire: 0
+  m_dtWind: 0
+  m_dtEarth: 0
+  m_dtWater: 0
+  m_dtDamage: 12
+  m_dtMP: 0
+  m_dtAttackPriority: 0
+--- !u!114 &-1950564374643416530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962021608736324873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Slash
+  m_cantUse: 0
+  m_btBlunt: 0
+  m_btSlash: 1
+  m_btPierce: 0
+  m_btFire: 0
+  m_btWind: 0
+  m_btEarth: 0
+  m_btWater: 0
+  m_btDamage: 12
+  m_btMP: 0
+  m_btAttackPriority: 0

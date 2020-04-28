@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 408669661325352721}
   - component: {fileID: 8073621351488561947}
+  - component: {fileID: 4866392284230299612}
+  - component: {fileID: -1307314994254415002}
   m_Layer: 0
   m_Name: PoisonBomb
   m_TagString: Untagged
@@ -54,3 +56,51 @@ MonoBehaviour:
   m_wind: 0
   m_earth: 1
   m_water: 0
+--- !u!114 &4866392284230299612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023130763482086214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Poison Bomb
+  m_cantUse: 0
+  m_dtBlunt: 1
+  m_dtSlash: 0
+  m_dtPierce: 0
+  m_dtFire: 0
+  m_dtWind: 0
+  m_dtEarth: 1
+  m_dtWater: 0
+  m_dtDamage: 16
+  m_dtMP: 15
+  m_dtAttackPriority: 0
+--- !u!114 &-1307314994254415002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023130763482086214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Poison Bomb
+  m_cantUse: 0
+  m_btBlunt: 1
+  m_btSlash: 0
+  m_btPierce: 0
+  m_btFire: 0
+  m_btWind: 0
+  m_btEarth: 1
+  m_btWater: 0
+  m_btDamage: 16
+  m_btMP: 15
+  m_btAttackPriority: 0

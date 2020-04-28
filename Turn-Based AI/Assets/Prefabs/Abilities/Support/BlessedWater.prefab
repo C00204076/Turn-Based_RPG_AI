@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5617942189356082589}
   - component: {fileID: 5042191339927823598}
+  - component: {fileID: -2062719701804313722}
+  - component: {fileID: 4272498823370844146}
   m_Layer: 0
   m_Name: BlessedWater
   m_TagString: Untagged
@@ -43,3 +45,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ce4c87f17b3224682f2cbb67e2b22e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_attackName: Blessed Water
+  m_attackDescription: Heal an ally with the lowest health!
+  m_attackDamage: 180
+  m_attackCost: 80
+  m_blunt: 0
+  m_slash: 0
+  m_pierce: 0
+  m_fire: 0
+  m_wind: 0
+  m_earth: 0
+  m_water: 1
+--- !u!114 &-2062719701804313722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217734797349180883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Blessed Water
+  m_cantUse: 0
+  m_dtBlunt: 0
+  m_dtSlash: 0
+  m_dtPierce: 0
+  m_dtFire: 0
+  m_dtWind: 0
+  m_dtEarth: 0
+  m_dtWater: 1
+  m_dtDamage: 180
+  m_dtMP: 80
+  m_dtAttackPriority: 0
+--- !u!114 &4272498823370844146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217734797349180883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Blessed Water
+  m_cantUse: 0
+  m_btBlunt: 0
+  m_btSlash: 0
+  m_btPierce: 0
+  m_btFire: 0
+  m_btWind: 0
+  m_btEarth: 0
+  m_btWater: 1
+  m_btDamage: 180
+  m_btMP: 80
+  m_btAttackPriority: 0

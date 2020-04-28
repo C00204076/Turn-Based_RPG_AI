@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1712341773834677168}
   - component: {fileID: 3285883877293227573}
+  - component: {fileID: 7393937861953902163}
+  - component: {fileID: 3514493566349953596}
   m_Layer: 0
   m_Name: BlazingSmite
   m_TagString: Untagged
@@ -54,3 +56,51 @@ MonoBehaviour:
   m_wind: 0
   m_earth: 0
   m_water: 0
+--- !u!114 &7393937861953902163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8976044170926836559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Blazing Smite
+  m_cantUse: 0
+  m_dtBlunt: 0
+  m_dtSlash: 1
+  m_dtPierce: 0
+  m_dtFire: 1
+  m_dtWind: 0
+  m_dtEarth: 0
+  m_dtWater: 0
+  m_dtDamage: 120
+  m_dtMP: 80
+  m_dtAttackPriority: 0
+--- !u!114 &3514493566349953596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8976044170926836559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Blazing Smite
+  m_cantUse: 0
+  m_btBlunt: 0
+  m_btSlash: 1
+  m_btPierce: 0
+  m_btFire: 1
+  m_btWind: 0
+  m_btEarth: 0
+  m_btWater: 0
+  m_btDamage: 120
+  m_btMP: 80
+  m_btAttackPriority: 0
