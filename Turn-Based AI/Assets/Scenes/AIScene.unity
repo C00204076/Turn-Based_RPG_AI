@@ -2486,7 +2486,7 @@ MonoBehaviour:
   m_targetDTData: []
   m_dtTargetObject: {fileID: 0}
   m_currentState: 0
-  m_aiState: 0
+  m_aiState: 1
   attack:
     Attacker: 
     Type: 

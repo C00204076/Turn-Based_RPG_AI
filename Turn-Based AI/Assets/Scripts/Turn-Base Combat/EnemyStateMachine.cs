@@ -154,7 +154,7 @@ public class EnemyStateMachine : MonoBehaviour
                 {
                     m_enemy.m_currentMP = m_enemy.m_baseMP;
                 }
-
+                attack = new HandleTurn();
                 break;
             case TurnState.CHOOSEACTION:
                 if(m_bsm.m_heroes.Count > 0)
@@ -170,7 +170,6 @@ public class EnemyStateMachine : MonoBehaviour
             case TurnState.ACTION:
                 actionTime();
                 // Reset attack data
-                attack = new HandleTurn();
                 //clearData();
                 break;
             case TurnState.DEAD:
@@ -262,6 +261,8 @@ public class EnemyStateMachine : MonoBehaviour
         //
         else if (m_aiState == AIState.DT)
         {
+            //Debug.Log("DT: We're here!");
+            //
             attack.Attacker = m_enemy.name;
             attack.Type = "Enemy";
             attack.AttackingObject = GameObject.Find("Enemy");
@@ -269,20 +270,28 @@ public class EnemyStateMachine : MonoBehaviour
             setDTTargetData();
             dtLowHP();
             dtLowMP();
+            
             //
-            //var trunk = MainDecisionTree();
-            //trunk.Evaluate(john);
+            var targetDT = targetDecisionTree();
+            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            {
+                targetDT.evaluate(m_targetDTData[i]);
+            }
 
             selectDTTarget();
             //
             setDTAttackData();
 
-            //var trunk = MainDecisionTree();
-            //trunk.Evaluate(john);
+            var attackDT = attackDecisionTree();
+            for (int j = 0; j < m_enemy.m_attacks.Count; j++)
+            {
+                attackDT.evaluate(m_attackDTData[j]);
+            }
 
             selectDTAttack();
+            //Debug.Log("DT: We're here!");
             //
-            Debug.Log(this.gameObject.name + " has choosen " +
+            Debug.Log("DT: " + this.gameObject.name + " has choosen " +
                       attack.m_choosenAttack.m_attackName + " and does " +
                       attack.m_choosenAttack.m_attackDamage + " damage!");
         }
@@ -417,6 +426,7 @@ public class EnemyStateMachine : MonoBehaviour
             if (result)
             {
                 this.positive.evaluate(target);
+                target.m_dtTargetPriority++;
             }
             else
             {
@@ -439,8 +449,6 @@ public class EnemyStateMachine : MonoBehaviour
     //
     private DecisionQuery targetDecisionTree()
     {
-        
-         
         //Decision 9
         var waterWeak = new DecisionQuery
         {
@@ -495,7 +503,6 @@ public class EnemyStateMachine : MonoBehaviour
             negative = pierceWeak
         };
 
-
         //Decision 3
         var bluntWeak = new DecisionQuery
         {
@@ -504,9 +511,6 @@ public class EnemyStateMachine : MonoBehaviour
             positive = slashWeak,
             negative = slashWeak
         };
-   
-         
-
 
         //Decision 2
         var canHeal = new DecisionQuery
@@ -566,6 +570,7 @@ public class EnemyStateMachine : MonoBehaviour
             if (result)
             {
                 this.positive.evaluate(attack);
+                attack.m_dtAttackPriority++;
             }
             else
             {
@@ -588,34 +593,71 @@ public class EnemyStateMachine : MonoBehaviour
     //
     private DecisionQueryTwo attackDecisionTree()
     {
-        //Decision 4
-        /*var creditBranch = new DecisionQueryTwo
+        
+        
+        //Decision 7
+        var useWater = new DecisionQueryTwo
         {
-            Title = "Use credit card",
-            Test = (client) => client.UsesCreditCard,
-            Positive = new DecisionResult { Result = true },
-            Negative = new DecisionResult { Result = false }
+            title = "Use Water",
+            attackTest = (attack) => attack.m_dtWater = m_dtTargetObject.m_dtWaterWeak,
+            positive = new DecisionResultTwo  { result = true },
+            negative = new DecisionResultTwo { result = false }
+        };
+
+        //Decision 6
+        var useEarth = new DecisionQueryTwo
+        {
+            title = "Use Earth",
+            attackTest = (attack) => attack.m_dtEarth = m_dtTargetObject.m_dtEarthWeak,
+            positive = useWater,
+            negative = useWater
+        };
+
+        //Decision 5
+        var useWind = new DecisionQueryTwo
+        {
+            title = "Use Wind",
+            attackTest = (attack) => attack.m_dtWind = m_dtTargetObject.m_dtWindWeak,
+            positive = useEarth,
+            negative = useEarth
+        };
+
+        //Decision 4
+        var useFire = new DecisionQueryTwo
+        {
+            title = "Use Fire",
+            attackTest = (attack) => attack.m_dtFire = m_dtTargetObject.m_dtFireWeak,
+            positive = useWind,
+            negative = useWind
         };
 
         //Decision 3
-        var experienceBranch = new DecisionQueryTwo
+        var usePierce = new DecisionQueryTwo
         {
-            Title = "Have more than 3 years experience",
-            Test = (client) => client.YearsInJob > 3,
-            Positive = creditBranch,
-            Negative = new DecisionResult { Result = false }
-        };*/
-
+            title = "Use Pierce",
+            attackTest = (attack) => attack.m_dtPierce = m_dtTargetObject.m_dtPierceWeak,
+            positive = useFire,
+            negative = useFire
+        };
 
         //Decision 2
+        var useSlash = new DecisionQueryTwo
+        {
+            title = "Use Slash",
+            attackTest = (attack) => attack.m_dtSlash = m_dtTargetObject.m_dtSlashWeak,
+            positive = usePierce,
+            negative = usePierce
+        };
+
+
+        //Decision 1
         var useBlunt = new DecisionQueryTwo
         {
             title = "Use Blunt",
             attackTest = (attack) => attack.m_dtBlunt = m_dtTargetObject.m_dtBluntWeak,
-            //positive = experienceBranch,
-            negative = new DecisionResultTwo { result = false }
+            positive = useSlash,
+            negative = useSlash
         };
-        
         
 
         //Decision 0
@@ -648,7 +690,6 @@ public class EnemyStateMachine : MonoBehaviour
             if (m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetHP == lowHP &&
                m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetHP != m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetMaxHP)
             {
-                m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetPriority += 1;
                 m_targetDTData[i].GetComponent<DTTarget>().m_lowHP = true;
                 break;
             }
@@ -673,9 +714,8 @@ public class EnemyStateMachine : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             if (m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetMP == lowMP &&
-               m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetMP != m_attackDTData[i].GetComponent<DTTarget>().m_dtTargetMaxMP)
+                m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetMP != m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetMaxMP)
             {
-                m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetPriority += 1;
                 m_targetDTData[i].GetComponent<DTTarget>().m_lowMP = true;
                 break;
             }
@@ -700,14 +740,24 @@ public class EnemyStateMachine : MonoBehaviour
 
             for (int i = 0; i < m_bsm.m_heroes.Count; i++)
             {
-                for (int j = 0; j < m_enemy.m_attacks.Count; j++)
+                
+                // Select attack with highest priority value
+                if (m_attackDTData[i].GetComponent<DTAttack>().m_dtAttackPriority == highPrior)
                 {
-                    // Select attack with highest priority value
-                    if (m_attackDTData[i].GetComponent<DTAttack>().m_dtAttackPriority == highPrior)
+                    
+                    if (m_attackDTData[i].GetComponent<DTAttack>().m_dtName == m_enemy.m_attacks[i].m_attackName)
                     {
-                        // Set attack
+                        
+                        attack.m_choosenAttack = m_enemy.m_attacks[i];
+                        break;
                     }
-                }//End for
+                    else
+                    {
+                        Debug.Log("DT: We're here!");
+                        attack.m_choosenAttack = m_enemy.m_attacks[i];
+                        break;
+                    }
+                }
             }//End for
         }
     }
@@ -715,9 +765,9 @@ public class EnemyStateMachine : MonoBehaviour
     //
     void selectDTTarget()
     {
-        int highPrior = 0;
+        int highPrior = 0;//m_attackDTData[0].GetComponent<DTTarget>().m_dtTargetPriority
 
-        if (attack.m_choosenAttack == null)
+        if (attack.Target == null)
         {
             foreach (DTTarget a in m_targetDTData)
             {
@@ -727,21 +777,23 @@ public class EnemyStateMachine : MonoBehaviour
                 }
             }//End for
 
+            //Debug.Log("DT: We're here!");
+
             for (int i = 0; i < m_bsm.m_heroes.Count; i++)
             {
-                for (int j = 0; j < m_enemy.m_attacks.Count; j++)
+                // Select attack with highest priority value
+                if (m_targetDTData[i].GetComponent<DTTarget>().m_dtTargetPriority == highPrior)
                 {
-                    // Select attack with highest priority value
-                    if (m_attackDTData[i].GetComponent<DTTarget>().m_dtTargetPriority == highPrior)
+                    //
+                    if (m_targetDTData[i].GetComponent<DTTarget>().m_dtName == m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_name)
                     {
-                        //
-                        if (m_targetDTData[i].GetComponent<DTTarget>().m_dtName == m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_name)
-                        {
-                            attack.Target = m_bsm.m_heroes[i];
-                            setHeroTarget(attack.Target);
-                        }
+                        attack.Target = m_bsm.m_heroes[i];
+                        m_dtTargetObject = m_targetDTData[i];
+                        setHeroTarget(attack.Target);
+                        break;
                     }
-                }//End for
+                }
+
             }//End for
         }
     }
@@ -771,17 +823,7 @@ public class EnemyStateMachine : MonoBehaviour
                 // If target data HP is equal to the HP of any of the heroes...
                 if (lowHP == m_targetBTData[i].GetComponent<BTTarget>().m_btTargetHP)
                 {
-                    m_targetBTData[i].GetComponent<BTTarget>().m_btTargetPriority += 1;          
-                    /*if(m_firstAttack == false)
-                    {
-                        m_targetBTData[i].GetComponent<BTTarget>().m_btTargetPriority += 1;
-                    }
-                    // ...and is not equal to base HP(maximum) of any of the heroes
-                    else if (lowHP != m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_baseHP)
-                    {
-                        // Increase the target's priority value
-                        m_targetBTData[i].GetComponent<BTTarget>().m_btTargetPriority += 1;
-                    }*/
+                    m_targetBTData[i].GetComponent<BTTarget>().m_btTargetPriority += 1;    
                 }
 
                 if(i >= 2)
@@ -799,9 +841,6 @@ public class EnemyStateMachine : MonoBehaviour
 
 
         return NodeStates.SUCCESS;
-       
-
-        //return NodeStates.FAILURE;
     }
 
     //
@@ -828,14 +867,6 @@ public class EnemyStateMachine : MonoBehaviour
                 if (lowMP == m_targetBTData[i].GetComponent<BTTarget>().m_btTargetMP)
                 {
                     m_targetBTData[i].GetComponent<BTTarget>().m_btTargetPriority += 1;
-                    
-                    
-                    /*// ...and is not equal to base MP(maximum) of any of the heroes
-                    if (lowMP != m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_baseMP)
-                    {
-                        // Increase the target's priority value
-                        m_targetBTData[i].GetComponent<BTTarget>().m_btTargetPriority += 1;
-                    }*/
                 }
 
                 if(i >=2)
