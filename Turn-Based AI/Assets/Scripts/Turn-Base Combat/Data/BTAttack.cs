@@ -7,6 +7,8 @@ public class BTAttack : MonoBehaviour
 {
     public string m_btName;
 
+    public bool m_cantUse = false;
+
     public bool m_btBlunt;
     public bool m_btSlash;
     public bool m_btPierce;

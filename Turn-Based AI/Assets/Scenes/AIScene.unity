@@ -1885,6 +1885,8 @@ GameObject:
   - component: {fileID: 1340934841}
   - component: {fileID: 1340934844}
   - component: {fileID: 1340934843}
+  - component: {fileID: 1340934846}
+  - component: {fileID: 1340934845}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Hero
@@ -1971,6 +1973,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hero: {fileID: 1340934844}
   m_heroObject: {fileID: 1340934840}
+  m_dtTarget: {fileID: 1340934846}
+  m_btTarget: {fileID: 1340934845}
   m_enemyTarget: {fileID: 1818766278}
   lowPlayer: {fileID: 0}
   m_currentState: 0
@@ -2016,6 +2020,58 @@ MonoBehaviour:
   - {fileID: 373378608195606164, guid: 8974f60ca68e8d845af269a9b6debbea, type: 3}
   m_normalAttack: {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105,
     type: 3}
+--- !u!114 &1340934845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340934840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d758ca15c178e41966bfbf2afad464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Mage
+  m_btCanHeal: 1
+  m_btBluntWeak: 0
+  m_btSlashWeak: 0
+  m_btPierceWeak: 0
+  m_btFireWeak: 0
+  m_btWindWeak: 0
+  m_btEarthWeak: 0
+  m_btWaterWeak: 0
+  m_btTargetHP: 0
+  m_btTargetMP: 0
+  m_btTargetPriority: 0
+--- !u!114 &1340934846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340934840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbfd30917fac524fb179193fbc77d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Mage
+  m_dtCanHeal: 1
+  m_lowHP: 0
+  m_lowMP: 0
+  m_dtBluntWeak: 0
+  m_dtSlashWeak: 0
+  m_dtPierceWeak: 0
+  m_dtFireWeak: 0
+  m_dtWindWeak: 0
+  m_dtEarthWeak: 0
+  m_dtWaterWeak: 0
+  m_dtTargetHP: 0
+  m_dtTargetMaxHP: 1150
+  m_dtTargetMP: 0
+  m_dtTargetMaxMP: 200
+  m_dtTargetPriority: 0
 --- !u!224 &1398393539 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 797185524271541997, guid: 9c44048d7ec86f946a547a96d42d5cb9,
@@ -2293,7 +2349,6 @@ MonoBehaviour:
   m_enemies: []
   m_heroHPs: []
   m_heroInput: 0
-  m_aiState: 0
   m_heroToManage: []
   m_actionPanel: {fileID: 2040428809}
   m_actionSpacer: {fileID: 78619185}
@@ -2430,6 +2485,7 @@ MonoBehaviour:
   m_attackDTData: []
   m_targetDTData: []
   m_currentState: 0
+  m_aiState: 2
   attack:
     Attacker: 
     Type: 
@@ -2453,7 +2509,7 @@ MonoBehaviour:
   m_baseHP: 5000
   m_currentHP: 5000
   m_baseMP: 2000
-  m_currentMP: 2000
+  m_currentMP: 0
   m_baseATK: 35
   m_currentATK: 35
   m_baseDEF: 35
@@ -2745,6 +2801,8 @@ GameObject:
   - component: {fileID: 2110743764}
   - component: {fileID: 2110743767}
   - component: {fileID: 2110743766}
+  - component: {fileID: 2110743769}
+  - component: {fileID: 2110743768}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Hero
@@ -2831,6 +2889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hero: {fileID: 2110743767}
   m_heroObject: {fileID: 2110743763}
+  m_dtTarget: {fileID: 2110743769}
+  m_btTarget: {fileID: 2110743768}
   m_enemyTarget: {fileID: 1818766278}
   lowPlayer: {fileID: 0}
   m_currentState: 0
@@ -2876,6 +2936,58 @@ MonoBehaviour:
   - {fileID: 3285883877293227573, guid: f7de47e9166ccf14b9e52fea04060b96, type: 3}
   m_normalAttack: {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb,
     type: 3}
+--- !u!114 &2110743768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110743763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d758ca15c178e41966bfbf2afad464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Warrior
+  m_btCanHeal: 1
+  m_btBluntWeak: 0
+  m_btSlashWeak: 0
+  m_btPierceWeak: 0
+  m_btFireWeak: 0
+  m_btWindWeak: 0
+  m_btEarthWeak: 0
+  m_btWaterWeak: 0
+  m_btTargetHP: 0
+  m_btTargetMP: 0
+  m_btTargetPriority: 0
+--- !u!114 &2110743769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110743763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbfd30917fac524fb179193fbc77d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Warrior
+  m_dtCanHeal: 1
+  m_lowHP: 0
+  m_lowMP: 0
+  m_dtBluntWeak: 0
+  m_dtSlashWeak: 0
+  m_dtPierceWeak: 0
+  m_dtFireWeak: 0
+  m_dtWindWeak: 0
+  m_dtEarthWeak: 0
+  m_dtWaterWeak: 0
+  m_dtTargetHP: 0
+  m_dtTargetMaxHP: 1500
+  m_dtTargetMP: 0
+  m_dtTargetMaxMP: 60
+  m_dtTargetPriority: 0
 --- !u!224 &2111616000 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8505548674939532961, guid: 4f7a0690adb23c540ac2488e7c2fb66a,
@@ -2894,6 +3006,8 @@ GameObject:
   - component: {fileID: 2137574596}
   - component: {fileID: 2137574599}
   - component: {fileID: 2137574598}
+  - component: {fileID: 2137574601}
+  - component: {fileID: 2137574600}
   m_Layer: 0
   m_Name: Thief
   m_TagString: Hero
@@ -2980,6 +3094,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hero: {fileID: 2137574599}
   m_heroObject: {fileID: 2137574595}
+  m_dtTarget: {fileID: 2137574601}
+  m_btTarget: {fileID: 2137574600}
   m_enemyTarget: {fileID: 1818766278}
   lowPlayer: {fileID: 0}
   m_currentState: 0
@@ -3025,3 +3141,55 @@ MonoBehaviour:
   - {fileID: 5886787597368303584, guid: a1a92effde0160549b0693df8c65c2cd, type: 3}
   m_normalAttack: {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f,
     type: 3}
+--- !u!114 &2137574600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137574595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d758ca15c178e41966bfbf2afad464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Thief
+  m_btCanHeal: 0
+  m_btBluntWeak: 0
+  m_btSlashWeak: 0
+  m_btPierceWeak: 0
+  m_btFireWeak: 0
+  m_btWindWeak: 0
+  m_btEarthWeak: 0
+  m_btWaterWeak: 0
+  m_btTargetHP: 0
+  m_btTargetMP: 0
+  m_btTargetPriority: 0
+--- !u!114 &2137574601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137574595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbfd30917fac524fb179193fbc77d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Thief
+  m_dtCanHeal: 0
+  m_lowHP: 0
+  m_lowMP: 0
+  m_dtBluntWeak: 0
+  m_dtSlashWeak: 0
+  m_dtPierceWeak: 0
+  m_dtFireWeak: 0
+  m_dtWindWeak: 0
+  m_dtEarthWeak: 0
+  m_dtWaterWeak: 0
+  m_dtTargetHP: 0
+  m_dtTargetMaxHP: 1200
+  m_dtTargetMP: 0
+  m_dtTargetMaxMP: 60
+  m_dtTargetPriority: 0

@@ -13,6 +13,7 @@ public class DecisionTree : MonoBehaviour
         public int YearsInJob { get; set; }
         public bool UsesCreditCard { get; set; }
         public bool CriminalRecord { get; set; }
+        public int TestVal { get; set; }
     }
 
 
@@ -36,8 +37,15 @@ public class DecisionTree : MonoBehaviour
 
             Debug.Log($"\t- {this.Title}? {resultAsString}");
 
-            if (result) this.Positive.Evaluate(client);
-            else this.Negative.Evaluate(client);
+            if (result)
+            {
+                this.Positive.Evaluate(client);
+                client.TestVal += 1;
+            }
+            else
+            {
+                this.Negative.Evaluate(client);
+            }
         }
     }
 
@@ -124,10 +132,13 @@ public class DecisionTree : MonoBehaviour
             Income = 45000,
             YearsInJob = 4,
             UsesCreditCard = true,
-            CriminalRecord = false
+            CriminalRecord = false,
+            TestVal = 0
         };
 
         trunk.Evaluate(john);
+
+        Debug.Log(john.TestVal);
 
         //Console.WriteLine("Press any key...");
         //Console.ReadKey();

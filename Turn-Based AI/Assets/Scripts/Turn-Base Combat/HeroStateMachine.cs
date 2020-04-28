@@ -17,6 +17,9 @@ public class HeroStateMachine : MonoBehaviour
     private BattleStateMachine1 m_bsm;
     public GameObject m_heroObject;
     //
+    public DTTarget m_dtTarget;
+    public BTTarget m_btTarget;
+    //
     private HandleTurn attack;
     //
     private Vector3 m_startPos;
@@ -71,15 +74,15 @@ public class HeroStateMachine : MonoBehaviour
         m_currentState = TurnState.PROCESSING;
         //
         m_barSpeed = m_hero.m_agility / 10000;
-
-        
+        //
+        setDT();
+        //
+        setBT();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
         switch (m_currentState)
         {
             case TurnState.PROCESSING:
@@ -137,6 +140,10 @@ public class HeroStateMachine : MonoBehaviour
 
                 break;
         }
+        //
+        setDT();
+        //
+        setBT();
     }
 
     //
@@ -336,6 +343,34 @@ public class HeroStateMachine : MonoBehaviour
                 Debug.Log(lowPlayer);
             }
         }
+    }
+
+    void setDT()
+    {
+        m_dtTarget.m_dtBluntWeak = m_hero.m_bluntWeak;
+        m_dtTarget.m_dtSlashWeak = m_hero.m_slashWeak;
+        m_dtTarget.m_dtPierceWeak = m_hero.m_pierceWeak;
+        m_dtTarget.m_dtFireWeak = m_hero.m_fireWeak;
+        m_dtTarget.m_dtWindWeak = m_hero.m_windWeak;
+        m_dtTarget.m_dtEarthWeak = m_hero.m_earthWeak;
+        m_dtTarget.m_dtWaterWeak = m_hero.m_waterWeak;
+
+        m_dtTarget.m_dtTargetHP = m_hero.m_currentHP;
+        m_dtTarget.m_dtTargetMP = m_hero.m_currentMP;
+    }
+
+    void setBT()
+    {
+        m_btTarget.m_btBluntWeak = m_hero.m_bluntWeak;
+        m_btTarget.m_btSlashWeak = m_hero.m_slashWeak;
+        m_btTarget.m_btPierceWeak = m_hero.m_pierceWeak;
+        m_btTarget.m_btFireWeak = m_hero.m_fireWeak;
+        m_btTarget.m_btWindWeak = m_hero.m_windWeak;
+        m_btTarget.m_btEarthWeak = m_hero.m_earthWeak;
+        m_btTarget.m_btWaterWeak = m_hero.m_waterWeak;
+          
+        m_btTarget.m_btTargetHP = m_hero.m_currentHP;
+        m_btTarget.m_btTargetMP = m_hero.m_currentMP;
     }
 
 }

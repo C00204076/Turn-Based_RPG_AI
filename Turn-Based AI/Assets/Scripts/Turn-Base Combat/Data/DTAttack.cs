@@ -7,6 +7,8 @@ public class DTAttack : MonoBehaviour
 {
     public string m_dtName;
 
+    public bool m_cantUse = false;
+
     public bool m_dtBlunt;
     public bool m_dtSlash;
     public bool m_dtPierce;

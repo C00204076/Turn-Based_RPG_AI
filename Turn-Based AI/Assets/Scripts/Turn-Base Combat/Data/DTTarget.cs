@@ -7,7 +7,9 @@ public class DTTarget : MonoBehaviour
 {
     public string m_dtName;
 
-    public bool m_dtCanHeal;
+    public bool m_dtCanHeal = false;
+    public bool m_lowHP= false;
+    public bool m_lowMP = false;
 
     public bool m_dtBluntWeak;
     public bool m_dtSlashWeak;
@@ -18,6 +20,8 @@ public class DTTarget : MonoBehaviour
     public bool m_dtWaterWeak;
 
     public float m_dtTargetHP;
+    public float m_dtTargetMaxHP;
     public float m_dtTargetMP;
+    public float m_dtTargetMaxMP;
     public int m_dtTargetPriority;
 }

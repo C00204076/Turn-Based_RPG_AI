@@ -28,14 +28,6 @@ public class BattleStateMachine1 : MonoBehaviour
     public List<float> m_heroHPs = new List<float>();
 
     //
-    public enum AIState
-    {
-        RANDOM,
-        DT,
-        BT
-    }
-
-    //
     public enum HeroGUI
     {
         ACTIVATE,
@@ -50,7 +42,6 @@ public class BattleStateMachine1 : MonoBehaviour
     private ActionButtonStats m_statsM;
     //
     public HeroGUI m_heroInput;
-    public AIState m_aiState;
     //
     public List<GameObject> m_heroToManage = new List<GameObject>();
     private HandleTurn m_herosChoice;
@@ -76,7 +67,6 @@ public class BattleStateMachine1 : MonoBehaviour
         m_heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
         m_enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         m_heroInput = HeroGUI.ACTIVATE;
-        m_aiState = AIState.RANDOM;
 
         m_actionPanel.SetActive(false);
         m_magicPanel.SetActive(false);
