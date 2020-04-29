@@ -34,12 +34,6 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     //
-    public GameObject m_btAttack;
-    public GameObject m_btTarget;
-    public GameObject m_dtAttack;
-    public GameObject m_dtTarget;
-
-    //
     public List<BTAttack> m_attackBTData = new List<BTAttack>();
     //
     public List<BTTarget> m_targetBTData = new List<BTTarget>();
@@ -78,7 +72,8 @@ public class EnemyStateMachine : MonoBehaviour
     public ActionNode m_lowestHPA;
     public ActionNode m_lowestMPB;
     public ActionNode m_canHealC;
-    public ActionNode m_selectTargetD;
+    public ActionNode m_hasWeaknessD;
+    public ActionNode m_selectTargetE;
     // Attacking
     public ActionNode m_currentMPA;
     public ActionNode m_weaknessB;
@@ -106,7 +101,8 @@ public class EnemyStateMachine : MonoBehaviour
         m_lowestHPA = new ActionNode(lowestHP);
         m_lowestMPB = new ActionNode(lowestMP);
         m_canHealC = new ActionNode(canHeal);
-        m_selectTargetD = new ActionNode(selectTarget);
+        m_hasWeaknessD = new ActionNode(hasWeaknesses);
+        m_selectTargetE = new ActionNode(selectTarget);
         //
         m_currentMPA = new ActionNode(currentMP);
         m_weaknessB = new ActionNode(whatWeakness);
@@ -118,7 +114,8 @@ public class EnemyStateMachine : MonoBehaviour
         m_rootA.Add(m_lowestHPA);
         m_rootA.Add(m_lowestMPB);
         m_rootA.Add(m_canHealC);
-        m_rootA.Add(m_selectTargetD);
+        m_rootA.Add(m_hasWeaknessD);
+        m_rootA.Add(m_selectTargetE);
 
         //m_rootNode = new Selector(m_rootA);
         m_sequenceA = new Sequence(m_rootA);
@@ -260,18 +257,15 @@ public class EnemyStateMachine : MonoBehaviour
             attack.Attacker = m_enemy.name;
             attack.Type = "Enemy";
             attack.AttackingObject = GameObject.Find("Enemy");
+            
             //
             setDTTargetData();
-            Debug.Log(m_targetDTData[0].m_dtName);
-            Debug.Log(m_targetDTData[0].m_dtFireWeak);
             //
             var targetDT = targetDecisionTree();
 
             targetDT.evaluate(m_targetDTData[0]);
             targetDT.evaluate(m_targetDTData[1]);
             targetDT.evaluate(m_targetDTData[2]);
-            Debug.Log(m_targetDTData[0].m_dtName);
-            Debug.Log(m_targetDTData[0].m_dtFireWeak);
 
             selectDTTarget();
             
@@ -289,15 +283,8 @@ public class EnemyStateMachine : MonoBehaviour
             attackDT.evaluate(m_attackDTData[6]);
 
 
-            Debug.Log(m_enemy.m_attacks[0].m_dtAttack.m_dtAttackPriority);
-            Debug.Log(m_enemy.m_attacks[1].m_dtAttack.m_dtAttackPriority);
-            Debug.Log(m_enemy.m_attacks[2].m_dtAttack.m_dtAttackPriority);
-            Debug.Log(m_enemy.m_attacks[3].m_dtAttack.m_dtAttackPriority);
-            Debug.Log(m_enemy.m_attacks[4].m_dtAttack.m_dtAttackPriority);
-            Debug.Log(m_enemy.m_attacks[5].m_dtAttack.m_dtAttackPriority);
-            Debug.Log(m_enemy.m_attacks[6].m_dtAttack.m_dtAttackPriority);//*/
-
             selectDTAttack();
+            Debug.Log(attack.m_choosenAttack);
             //
             Debug.Log("DT: " + this.gameObject.name + " has choosen " +
                       attack.m_choosenAttack.m_attackName + " and does " +
@@ -310,24 +297,29 @@ public class EnemyStateMachine : MonoBehaviour
             attack.Attacker = m_enemy.name;
             attack.Type = "Enemy";
             attack.AttackingObject = GameObject.Find("Enemy");
-            setBTTargetData();
+            
 
+            //
+            setBTTargetData();
 
             m_sequenceA.Evaluate();
 
-            
+            /*Debug.Log(m_targetBTData[0].m_btTargetPriority);
+            Debug.Log(m_targetBTData[1].m_btTargetPriority);
+            Debug.Log(m_targetBTData[2].m_btTargetPriority);*/
+
             //
             setBTAttackData();
 
             m_sequenceB.Evaluate();
             
-            Debug.Log(m_enemy.m_attacks[0].m_btAttack.m_btAttackPriority);
+            /*Debug.Log(m_enemy.m_attacks[0].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[1].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[2].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[3].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[4].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[5].m_btAttack.m_btAttackPriority);
-            Debug.Log(m_enemy.m_attacks[6].m_btAttack.m_btAttackPriority);
+            Debug.Log(m_enemy.m_attacks[6].m_btAttack.m_btAttackPriority);//*/
 
             Debug.Log("BT:" + this.gameObject.name + " has choosen " +
                       attack.m_choosenAttack.m_attackName + " and does " +
@@ -720,7 +712,9 @@ public class EnemyStateMachine : MonoBehaviour
             {
                 if (a.GetComponent<DTAttack>().m_dtAttackPriority >= highPrior)
                 {
+                    Debug.Log("Prior" + highPrior);
                     highPrior = a.GetComponent<DTAttack>().m_dtAttackPriority;
+                    Debug.Log("Prior" + highPrior);
                 }
             }//End for
 
@@ -732,9 +726,8 @@ public class EnemyStateMachine : MonoBehaviour
                 }
             }
 
-            for (int i = 0; i < m_bsm.m_heroes.Count; i++)
+            for (int i = 0; i < m_enemy.m_attacks.Count; i++)
             {
-
                 // Select attack with highest priority value
                 if (m_attackDTData[i].GetComponent<DTAttack>().m_dtAttackPriority == highPrior)
                 {
@@ -742,10 +735,8 @@ public class EnemyStateMachine : MonoBehaviour
                     {
                         if (m_attackDTData[i].GetComponent<DTAttack>().m_dtName == m_enemy.m_attacks[i].m_attackName)
                         {
-
                             if (m_attackDTData[i].GetComponent<DTAttack>().m_dtDamage == highAttack)
                             {
-
                                 attack.m_choosenAttack = m_enemy.m_attacks[i];
                             }
 
@@ -942,6 +933,75 @@ public class EnemyStateMachine : MonoBehaviour
         return NodeStates.FAILURE;
     }
 
+    private NodeStates hasWeaknesses()
+    {
+        //
+        if (attack.Target == null)
+        {
+
+            for (int j = 0; j < m_bsm.m_heroes.Count; j++)
+            {
+                if (j > 2)
+                {
+                    return NodeStates.SUCCESS;
+                    break;
+                }
+
+                //
+                if (m_targetBTData[j].m_btBluntWeak == true)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+                //
+                if (m_targetBTData[j].m_btSlashWeak == true)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+                //
+                if (m_targetBTData[j].m_btPierceWeak == true)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+                //
+                if (m_targetBTData[j].m_btFireWeak == true)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+                //
+                if (m_targetBTData[j].m_btWindWeak == true)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+                //
+                if (m_targetBTData[j].m_btEarthWeak == true)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+                //
+                if (m_targetBTData[j].m_btWaterWeak)
+                {
+                    m_targetBTData[j].GetComponent<BTTarget>().m_btTargetPriority += 1;
+                }
+
+            }//End for
+        }//End if
+
+        // Returns failure if their is not data to use
+        else if (m_targetBTData == null)
+        {
+            return NodeStates.FAILURE;
+        }
+
+
+        return NodeStates.SUCCESS;
+    }
+
     private NodeStates selectTarget()
     {
         int highPrior = 0;
@@ -1053,42 +1113,42 @@ public class EnemyStateMachine : MonoBehaviour
                 }
 
                 //
-                else if (m_btTargetObject.m_btSlashWeak == true &&
+                if (m_btTargetObject.m_btSlashWeak == true &&
                          m_attackBTData[j].GetComponent<BTAttack>().m_btSlash == true)
                 {
                     m_attackBTData[j].GetComponent<BTAttack>().m_btAttackPriority += 1;
                 }
 
                 //
-                else if (m_btTargetObject.m_btPierceWeak == true &&
+                if (m_btTargetObject.m_btPierceWeak == true &&
                          m_attackBTData[j].GetComponent<BTAttack>().m_btPierce == true)
                 {
                     m_attackBTData[j].GetComponent<BTAttack>().m_btAttackPriority += 1;
                 }
 
                 //
-                else if (m_btTargetObject.m_btFireWeak == true &&
+                if (m_btTargetObject.m_btFireWeak == true &&
                          m_attackBTData[j].GetComponent<BTAttack>().m_btFire == true)
                 {
                     m_attackBTData[j].GetComponent<BTAttack>().m_btAttackPriority += 1;
                 }
 
                 //
-                else if (m_btTargetObject.m_btWindWeak == true &&
+                if (m_btTargetObject.m_btWindWeak == true &&
                          m_attackBTData[j].GetComponent<BTAttack>().m_btWind == true)
                 {
                     m_attackBTData[j].GetComponent<BTAttack>().m_btAttackPriority += 1;
                 }
 
                 //
-                else if (m_btTargetObject.m_btEarthWeak == true &&
+                if (m_btTargetObject.m_btEarthWeak == true &&
                          m_attackBTData[j].GetComponent<BTAttack>().m_btEarth == true)
                 {
                     m_attackBTData[j].GetComponent<BTAttack>().m_btAttackPriority += 1;
                 }
 
                 //
-                else if (m_btTargetObject.m_btWaterWeak == true &&
+                if (m_btTargetObject.m_btWaterWeak == true &&
                          m_attackBTData[j].GetComponent<BTAttack>().m_btWater == true)
                 {
                     m_attackBTData[j].GetComponent<BTAttack>().m_btAttackPriority += 1;

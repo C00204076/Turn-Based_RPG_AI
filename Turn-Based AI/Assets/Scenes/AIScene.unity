@@ -2474,14 +2474,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemy: {fileID: 1818766282}
-  m_btAttack: {fileID: 5874417401357242883, guid: 7e61078e7cdfb1f408bba88af988c3fc,
-    type: 3}
-  m_btTarget: {fileID: 1750996091066405695, guid: 2dbc9330b60c9de4d9084b69889e8870,
-    type: 3}
-  m_dtAttack: {fileID: 2483484512179039283, guid: 3507e3477197f4c4db551eabc9316cb2,
-    type: 3}
-  m_dtTarget: {fileID: 3531091963198536822, guid: b24c85fa54ebc424499e7ba99c730226,
-    type: 3}
   m_attackBTData: []
   m_targetBTData: []
   m_btTargetObject: {fileID: 0}
@@ -2489,7 +2481,7 @@ MonoBehaviour:
   m_targetDTData: []
   m_dtTargetObject: {fileID: 0}
   m_currentState: 0
-  m_aiState: 1
+  m_aiState: 2
   attack:
     Attacker: 
     Type: 
@@ -3134,12 +3126,12 @@ MonoBehaviour:
   m_constitution: 10
   m_agility: 45
   m_bluntWeak: 0
-  m_slashWeak: 1
+  m_slashWeak: 0
   m_pierceWeak: 0
-  m_fireWeak: 1
-  m_windWeak: 1
-  m_earthWeak: 1
-  m_waterWeak: 1
+  m_fireWeak: 0
+  m_windWeak: 0
+  m_earthWeak: 0
+  m_waterWeak: 0
   m_attacks:
   - {fileID: 83453300450857872, guid: 03da6a3db5553c340827d8768b04d949, type: 3}
   - {fileID: 8073621351488561947, guid: 8299175ce10adf14387c6eb0bd01de26, type: 3}
