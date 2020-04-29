@@ -45,10 +45,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 678, y: 492}
-  m_MaxSize: {x: 14001, y: 14042}
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 66
+  controlID: 92
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 430
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 536
     height: 567
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 67
+  controlID: 93
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -264,8 +264,8 @@ MonoBehaviour:
     y: 0
     width: 954
     height: 567
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -338,21 +338,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Abilities/Melee Attack
+    - Assets/Scripts/Turn-Base Combat/Data
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/Abilities/Melee Attack
+  - Assets/Scripts/Turn-Base Combat/Data
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Brandon\Desktop\College\Turn-Based_RPG_AI\Turn-Based
     AI
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 161}
-    m_SelectedIDs: 4c360000
-    m_LastClickedID: 13900
-    m_ExpandedIDs: 00000000283600002a3600002c3600002e36000030360000323600003436000036360000383600003a36000000ca9a3b
+    scrollPos: {x: 0, y: 125}
+    m_SelectedIDs: a0360000
+    m_LastClickedID: 13984
+    m_ExpandedIDs: 00000000683600006a3600006c3600006e36000070360000723600007436000076360000783600007a36000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -380,7 +380,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000283600002a3600002c3600002e36000030360000323600003436000036360000383600003a360000
+    m_ExpandedIDs: 00000000683600006a3600006c3600006e36000070360000723600007436000076360000783600007a360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -424,7 +424,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 3}
+      m_ClientGUIView: {fileID: 5}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 268.838, y: -78.381996, z: -62.875}
     speed: 2
-    m_Value: {x: 561.9206, y: 44.638584, z: -713.4498}
+    m_Value: {x: 268.838, y: -78.381996, z: -62.875}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 622.95233
     speed: 2
-    m_Value: 22.99
+    m_Value: 622.95233
   m_Ortho:
     m_Target: 1
     speed: 2

@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6248608300770009366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4895686873737414038}
+  - component: {fileID: 1933567077169432542}
+  - component: {fileID: -6695080081810564752}
+  - component: {fileID: 8914350871631554112}
+  m_Layer: 0
+  m_Name: TriMagic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4895686873737414038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248608300770009366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 268.838, y: -78.381996, z: -62.875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1933567077169432542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248608300770009366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb679d43e460964b8e29ed3ba18fdf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackName: TriMagic
+  m_attackDescription: Hit a foe with a three different magic attacks!
+  m_attackDamage: 300
+  m_attackCost: 325
+  m_blunt: 0
+  m_slash: 0
+  m_pierce: 0
+  m_fire: 1
+  m_wind: 1
+  m_earth: 1
+  m_water: 1
+  m_dtAttack: {fileID: -6695080081810564752}
+  m_btAttack: {fileID: 8914350871631554112}
+--- !u!114 &-6695080081810564752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248608300770009366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: TriMagic
+  m_cantUse: 0
+  m_dtBlunt: 0
+  m_dtSlash: 0
+  m_dtPierce: 0
+  m_dtFire: 1
+  m_dtWind: 1
+  m_dtEarth: 1
+  m_dtWater: 1
+  m_dtDamage: 300
+  m_dtMP: 325
+  m_dtAttackPriority: 0
+--- !u!114 &8914350871631554112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248608300770009366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: TriMagic
+  m_cantUse: 0
+  m_btBlunt: 0
+  m_btSlash: 0
+  m_btPierce: 0
+  m_btFire: 1
+  m_btWind: 1
+  m_btEarth: 1
+  m_btWater: 1
+  m_btDamage: 300
+  m_btMP: 325
+  m_btAttackPriority: 0

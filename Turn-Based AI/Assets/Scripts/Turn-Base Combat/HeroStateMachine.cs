@@ -350,13 +350,48 @@ public class HeroStateMachine : MonoBehaviour
         m_dtTarget.m_dtBluntWeak = m_hero.m_bluntWeak;
         m_dtTarget.m_dtSlashWeak = m_hero.m_slashWeak;
         m_dtTarget.m_dtPierceWeak = m_hero.m_pierceWeak;
+
+        if(m_dtTarget.m_dtBluntWeak == true ||
+           m_dtTarget.m_dtSlashWeak == true ||
+           m_dtTarget.m_dtPierceWeak == true)
+        {
+            m_dtTarget.m_physicalWeak = true;
+        }
+
         m_dtTarget.m_dtFireWeak = m_hero.m_fireWeak;
         m_dtTarget.m_dtWindWeak = m_hero.m_windWeak;
         m_dtTarget.m_dtEarthWeak = m_hero.m_earthWeak;
         m_dtTarget.m_dtWaterWeak = m_hero.m_waterWeak;
 
+        if (m_dtTarget.m_dtFireWeak == true ||
+            m_dtTarget.m_dtWindWeak == true ||
+            m_dtTarget.m_dtEarthWeak == true ||
+            m_dtTarget.m_dtWaterWeak == true)
+        {
+            m_dtTarget.m_magicWeak = true;
+        }
+
         m_dtTarget.m_dtTargetHP = m_hero.m_currentHP;
         m_dtTarget.m_dtTargetMP = m_hero.m_currentMP;
+
+        if(m_dtTarget.m_dtTargetHP < m_hero.m_baseHP)
+        {
+            m_dtTarget.m_lowHP = true;
+        }
+        else
+        {
+            m_dtTarget.m_lowHP = false;
+        }
+
+        if (m_dtTarget.m_dtTargetMP < m_hero.m_baseMP)
+        {
+            m_dtTarget.m_lowMP = true;
+        }
+        else
+        {
+            m_dtTarget.m_lowMP = false;
+        }
+
     }
 
     void setBT()

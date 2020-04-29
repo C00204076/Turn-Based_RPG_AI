@@ -2060,9 +2060,11 @@ MonoBehaviour:
   m_dtCanHeal: 1
   m_lowHP: 0
   m_lowMP: 0
+  m_physicalWeak: 0
   m_dtBluntWeak: 0
   m_dtSlashWeak: 0
   m_dtPierceWeak: 0
+  m_magicWeak: 0
   m_dtFireWeak: 0
   m_dtWindWeak: 0
   m_dtEarthWeak: 0
@@ -2482,6 +2484,7 @@ MonoBehaviour:
     type: 3}
   m_attackBTData: []
   m_targetBTData: []
+  m_btTargetObject: {fileID: 0}
   m_attackDTData: []
   m_targetDTData: []
   m_dtTargetObject: {fileID: 0}
@@ -2510,7 +2513,7 @@ MonoBehaviour:
   m_baseHP: 5000
   m_currentHP: 5000
   m_baseMP: 2000
-  m_currentMP: 0
+  m_currentMP: 2000
   m_baseATK: 35
   m_currentATK: 35
   m_baseDEF: 35
@@ -2521,13 +2524,13 @@ MonoBehaviour:
   m_constitution: 35
   m_agility: 35
   m_attacks:
-  - {fileID: 7151577337568314912, guid: b17afc7da50f3c14d91224c433663105, type: 3}
-  - {fileID: 1894055720360473041, guid: acd2a389fb459db408d0d0485261fefb, type: 3}
-  - {fileID: 2798632773984010819, guid: 10ef24482c889dc44aa6f23ba405162f, type: 3}
-  - {fileID: 373378608195606164, guid: 8974f60ca68e8d845af269a9b6debbea, type: 3}
-  - {fileID: 7357844257612743833, guid: fbeb1c2830adaf24d829fe33299939e4, type: 3}
-  - {fileID: 1691216303096951722, guid: b11bd6a2576db134081db5aba94561c8, type: 3}
-  - {fileID: 4483360475157024796, guid: cfaa628d1cbc9364ab5726b9dca8f531, type: 3}
+  - {fileID: 186271633793269129, guid: c970475f7c9a8134d8ae14833e636d38, type: 3}
+  - {fileID: 3285883877293227573, guid: f7de47e9166ccf14b9e52fea04060b96, type: 3}
+  - {fileID: 83453300450857872, guid: 03da6a3db5553c340827d8768b04d949, type: 3}
+  - {fileID: 5423683431317812362, guid: cf48bc91b8ed428428dfe0bf78124377, type: 3}
+  - {fileID: 1933567077169432542, guid: 054a1b201b6f8ac41ab530d621d7c5e5, type: 3}
+  - {fileID: 3306123425732815400, guid: 50c52d11a4db2664dbf1e2cb8247ec36, type: 3}
+  - {fileID: 5001215532329544555, guid: 93f5bf3183bbb9a46a9aae504b1cff11, type: 3}
 --- !u!1 &1825252940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2977,9 +2980,11 @@ MonoBehaviour:
   m_dtCanHeal: 1
   m_lowHP: 0
   m_lowMP: 0
+  m_physicalWeak: 0
   m_dtBluntWeak: 0
   m_dtSlashWeak: 0
   m_dtPierceWeak: 0
+  m_magicWeak: 0
   m_dtFireWeak: 0
   m_dtWindWeak: 0
   m_dtEarthWeak: 0
@@ -3129,12 +3134,12 @@ MonoBehaviour:
   m_constitution: 10
   m_agility: 45
   m_bluntWeak: 0
-  m_slashWeak: 0
+  m_slashWeak: 1
   m_pierceWeak: 0
-  m_fireWeak: 0
-  m_windWeak: 0
-  m_earthWeak: 0
-  m_waterWeak: 0
+  m_fireWeak: 1
+  m_windWeak: 1
+  m_earthWeak: 1
+  m_waterWeak: 1
   m_attacks:
   - {fileID: 83453300450857872, guid: 03da6a3db5553c340827d8768b04d949, type: 3}
   - {fileID: 8073621351488561947, guid: 8299175ce10adf14387c6eb0bd01de26, type: 3}
@@ -3182,9 +3187,11 @@ MonoBehaviour:
   m_dtCanHeal: 0
   m_lowHP: 0
   m_lowMP: 0
+  m_physicalWeak: 0
   m_dtBluntWeak: 0
   m_dtSlashWeak: 0
   m_dtPierceWeak: 0
+  m_magicWeak: 0
   m_dtFireWeak: 0
   m_dtWindWeak: 0
   m_dtEarthWeak: 0

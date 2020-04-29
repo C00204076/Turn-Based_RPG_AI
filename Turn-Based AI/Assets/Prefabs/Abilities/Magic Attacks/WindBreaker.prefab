@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3693907480643522132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6388795091758451541}
+  - component: {fileID: 5423683431317812362}
+  - component: {fileID: 6077938129336563993}
+  - component: {fileID: 7364109015065615801}
+  m_Layer: 0
+  m_Name: WindBreaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6388795091758451541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693907480643522132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 268.838, y: -78.381996, z: -62.875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5423683431317812362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693907480643522132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfcb5ab9cf389b4f97e00c7ec9f905e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackName: Wind Breaker
+  m_attackDescription: Hit a foe with a powerful blast of wind!
+  m_attackDamage: 200
+  m_attackCost: 100
+  m_blunt: 0
+  m_slash: 1
+  m_pierce: 1
+  m_fire: 0
+  m_wind: 1
+  m_earth: 0
+  m_water: 0
+  m_dtAttack: {fileID: 6077938129336563993}
+  m_btAttack: {fileID: 7364109015065615801}
+--- !u!114 &6077938129336563993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693907480643522132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d89af2e43c68446b9f8427b6fa25dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dtName: Wind BreakerWind Breaker
+  m_cantUse: 0
+  m_dtBlunt: 0
+  m_dtSlash: 1
+  m_dtPierce: 1
+  m_dtFire: 0
+  m_dtWind: 1
+  m_dtEarth: 0
+  m_dtWater: 0
+  m_dtDamage: 200
+  m_dtMP: 100
+  m_dtAttackPriority: 0
+--- !u!114 &7364109015065615801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693907480643522132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3978f3f6baaff7408a23257c3acd573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_btName: Wind Breaker
+  m_cantUse: 0
+  m_btBlunt: 0
+  m_btSlash: 1
+  m_btPierce: 1
+  m_btFire: 0
+  m_btWind: 1
+  m_btEarth: 0
+  m_btWater: 0
+  m_btDamage: 200
+  m_btMP: 100
+  m_btAttackPriority: 0

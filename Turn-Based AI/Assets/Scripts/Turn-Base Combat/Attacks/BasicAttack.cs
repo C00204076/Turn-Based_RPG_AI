@@ -21,4 +21,7 @@ public class BasicAttack : MonoBehaviour
     public bool m_wind;
     public bool m_earth;
     public bool m_water;
+    //
+    public DTAttack m_dtAttack;
+    public BTAttack m_btAttack;
 }

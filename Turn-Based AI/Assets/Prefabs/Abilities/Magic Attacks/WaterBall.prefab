@@ -56,6 +56,8 @@ MonoBehaviour:
   m_wind: 0
   m_earth: 0
   m_water: 1
+  m_dtAttack: {fileID: -2099676573574814733}
+  m_btAttack: {fileID: -8319013350411526800}
 --- !u!114 &-2099676573574814733
 MonoBehaviour:
   m_ObjectHideFlags: 0
