@@ -56,13 +56,16 @@ public class EnemyStateMachine : MonoBehaviour
     //
     public HandleTurn attack;
     //actionTime
-    private bool m_startedAct = false;
     public GameObject m_heroTarget;
     private float m_animationSpeed;
 
     private bool m_alive = true;
 
     private bool m_firstAttack = false;
+    public bool m_hit = false, m_attacking = false;
+    private int left = 0, right = 0;
+    private int timer = 0;
+    private int aniTimer = 0;
 
     //
     public Sequence m_sequenceA;
@@ -133,6 +136,9 @@ public class EnemyStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //wasHit();
+        attackAni();
+
         switch (m_currentState)
         {
             case TurnState.PROCESSING:
@@ -154,7 +160,7 @@ public class EnemyStateMachine : MonoBehaviour
                 {
                     chooseAction();
                 }
-                m_enemy.m_currentMP += 2;
+                m_enemy.m_currentMP += 50;
                 m_currentState = TurnState.ACTION;
                 break;
             case TurnState.WAITING:
@@ -239,11 +245,13 @@ public class EnemyStateMachine : MonoBehaviour
             attack.Type = "Enemy";
             attack.AttackingObject = GameObject.Find("Enemy");
 
+            int num = Random.Range(0, m_bsm.m_heroes.Count);
             attack.Target = m_bsm.m_heroes[Random.Range(0, m_bsm.m_heroes.Count)];
             setHeroTarget(attack.Target);
+            m_bsm.m_heroes[num].GetComponent<HeroStateMachine>().m_hit = true;
 
             //
-            int num = Random.Range(0, m_enemy.m_attacks.Count);
+            num = Random.Range(0, m_enemy.m_attacks.Count);
             attack.m_choosenAttack = m_enemy.m_attacks[num];
             Debug.Log("Random: " + this.gameObject.name + " has choosen " +
                       attack.m_choosenAttack.m_attackName + " and does " +
@@ -284,6 +292,8 @@ public class EnemyStateMachine : MonoBehaviour
 
 
             selectDTAttack();
+            //m_bsm.m_heroes[num].GetComponent<HeroStateMachine>().m_hit = true;
+
             Debug.Log(attack.m_choosenAttack);
             //
             Debug.Log("DT: " + this.gameObject.name + " has choosen " +
@@ -312,7 +322,7 @@ public class EnemyStateMachine : MonoBehaviour
             setBTAttackData();
 
             m_sequenceB.Evaluate();
-            
+
             /*Debug.Log(m_enemy.m_attacks[0].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[1].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[2].m_btAttack.m_btAttackPriority);
@@ -320,6 +330,7 @@ public class EnemyStateMachine : MonoBehaviour
             Debug.Log(m_enemy.m_attacks[4].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[5].m_btAttack.m_btAttackPriority);
             Debug.Log(m_enemy.m_attacks[6].m_btAttack.m_btAttackPriority);//*/
+            //m_bsm.m_heroes[num].GetComponent<HeroStateMachine>().m_hit = true;
 
             Debug.Log("BT:" + this.gameObject.name + " has choosen " +
                       attack.m_choosenAttack.m_attackName + " and does " +
@@ -334,12 +345,7 @@ public class EnemyStateMachine : MonoBehaviour
     //IEnumerator
     void actionTime()
     {
-        m_startedAct = true;
-
-        // Animate enemy attacking hero, when near
-        Vector2 heroPos = new Vector2(m_heroTarget.transform.position.x,
-                                      m_heroTarget.transform.position.y);
-
+        m_attacking = true;
         // Do damage
         doDamage();
         // Animate back to sart position
@@ -349,28 +355,12 @@ public class EnemyStateMachine : MonoBehaviour
         m_bsm.m_performList.RemoveAt(0);
         // Reset BSM -> Wait
         m_bsm.m_battleStates = BattleStateMachine1.PerformAction.WAIT;
-        // End of Coroutine
-        m_startedAct = false;
         // Reset this enemy state
         m_attackTime = 0.0f;
         m_currentState = TurnState.PROCESSING;
     }
 
-    private bool moveTowardsHero(Vector3 target)
-    {
-        return target != (m_enemy.transform.position = Vector2.MoveTowards(
-            new Vector3(transform.position.x, transform.position.y, transform.position.z),
-            new Vector3(target.x, target.y, target.z),
-            m_animationSpeed * Time.deltaTime));
-    }
-
-    private bool moveTowardsStart(Vector3 target)
-    {
-        return target != (m_enemy.transform.position = Vector2.MoveTowards(
-            new Vector3(transform.position.x, transform.position.y, transform.position.z),
-            new Vector3(target.x, target.y, target.z),
-            m_animationSpeed * Time.deltaTime));
-    }
+   
 
     public void setHeroTarget(GameObject target)
     {
@@ -390,6 +380,7 @@ public class EnemyStateMachine : MonoBehaviour
     // 
     public void takeDamage(float damage)
     {
+        //attack*(100/(100+defense))
         m_enemy.m_currentHP -= damage;
 
         if (m_enemy.m_currentHP <= 0)
@@ -712,9 +703,7 @@ public class EnemyStateMachine : MonoBehaviour
             {
                 if (a.GetComponent<DTAttack>().m_dtAttackPriority >= highPrior)
                 {
-                    Debug.Log("Prior" + highPrior);
                     highPrior = a.GetComponent<DTAttack>().m_dtAttackPriority;
-                    Debug.Log("Prior" + highPrior);
                 }
             }//End for
 
@@ -778,7 +767,6 @@ public class EnemyStateMachine : MonoBehaviour
                     if (m_targetDTData[i].GetComponent<DTTarget>().m_dtName == m_bsm.m_heroes[i].GetComponent<HeroStateMachine>().m_hero.m_name)
                     {
                         attack.Target = m_bsm.m_heroes[i];
-                        Debug.Log(m_targetDTData[i].m_dtFireWeak);
                         m_dtTargetObject = m_targetDTData[i];
                         setHeroTarget(attack.Target);
                         break;
@@ -1258,7 +1246,22 @@ public class EnemyStateMachine : MonoBehaviour
                 {
                     if (m_attackBTData[j].GetComponent<BTAttack>().m_btName == m_enemy.m_attacks[j].m_attackName)
                     {
+                        Debug.Log("Here");
                         if (m_attackBTData[j].GetComponent<BTAttack>().m_cantUse == false)
+                        {
+                            if (m_attackBTData[j].GetComponent<BTAttack>().m_btDamage == highAttack)
+                            {
+
+                                attack.m_choosenAttack = m_enemy.m_attacks[j];
+                            }
+
+                            else
+                            {
+                                attack.m_choosenAttack = m_enemy.m_attacks[j];
+                            }
+                        }
+                        // Default
+                        else
                         {
                             if (m_attackBTData[j].GetComponent<BTAttack>().m_btDamage == highAttack)
                             {
@@ -1291,6 +1294,60 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     //
+
+    //
+    void wasHit()
+    {
+        if (m_hit == true)
+        {
+            if (timer < 100)
+            {
+                if (left < 5)
+                {
+                    this.gameObject.transform.position -= new Vector3(0.1f, 0, 0);
+                    left++;
+                }
+
+                else if (right < 5)
+                {
+                    this.gameObject.transform.position += new Vector3(0.1f, 0, 0);
+                    right++;
+                }
+
+                else
+                {
+                    left = 0;
+                    right = 0;
+                }
+
+                timer++;
+            }
+            else
+            {
+                this.gameObject.transform.position = m_startPos;
+                timer = 0;
+                m_hit = false;
+            }
+        }
+    }
+    // 
+    void attackAni()
+    {
+        if (m_attacking == true)
+        {
+            if (aniTimer < 10)
+            {
+                this.gameObject.transform.position += new Vector3(0.1f, 0, 0);
+                aniTimer++;
+            }
+            else
+            {
+                this.gameObject.transform.position = m_startPos;
+                aniTimer = 0;
+                m_attacking = false;
+            }
+        }
+    }
 
     //
     //

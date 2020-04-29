@@ -22,11 +22,13 @@ public class HeroStateMachine : MonoBehaviour
     //
     private HandleTurn attack;
     //
-    private Vector3 m_startPos;
+    public Vector3 m_startPos;
     //actionTime
     private bool m_startedAct = false;
     public GameObject m_enemyTarget;
     private bool m_healing = false;
+    public bool m_hit = false, m_attacking = false;
+    
     //
     public GameObject lowPlayer;
 
@@ -53,6 +55,10 @@ public class HeroStateMachine : MonoBehaviour
     private Transform m_heroPanelSpacer;
 
     float m_barSpeed;
+
+    private int left = 0, right = 0;
+    private int timer = 0, aniTimer = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +89,9 @@ public class HeroStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //wasHit();
+        attackAni();
+
         switch (m_currentState)
         {
             case TurnState.PROCESSING:
@@ -149,33 +158,9 @@ public class HeroStateMachine : MonoBehaviour
     //
     private void actionTime()
     {
-        // Break IEnumerator if action has already started
-        /*if (m_startedAct)
-        {
-            yield break;
-        }*/
-
-        m_startedAct = true;
-
-        // Animate enemy attacking hero, when near
-        /*Vector2 heroPos = new Vector2(m_enemyTarget.transform.position.x,
-                                      m_enemyTarget.transform.position.y);*/
-        // Return null if true
-        /*while (moveTowardsHero(heroPos))
-        {
-            yield return null;
-        }*/
-        
-        // Wait
-        //yield return new WaitForSeconds(0.5f);
+        m_attacking = true;
         // Do damage
         doDamage();
-        // Animate back to sart position
-        Vector3 firstPos = m_startPos;
-        /*while (moveTowardsStart(firstPos))
-        {
-            yield return null;
-        }*/
         
         // Remove performer from BSM list
         m_bsm.m_performList.RemoveAt(0);
@@ -194,8 +179,7 @@ public class HeroStateMachine : MonoBehaviour
         {
             m_currentState = TurnState.WAITING;
         }
-        // End of Coroutine
-        m_startedAct = false;
+        // End
         m_currentState = TurnState.PROCESSING;
     }
 
@@ -280,6 +264,7 @@ public class HeroStateMachine : MonoBehaviour
         {
             m_enemyTarget = GameObject.Find("Enemy");
             m_enemyTarget.GetComponent<EnemyStateMachine>().takeDamage(damageCal);
+            m_enemyTarget.GetComponent<EnemyStateMachine>().m_hit = true;
         }
 
         m_turnBar.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
@@ -288,7 +273,7 @@ public class HeroStateMachine : MonoBehaviour
     //
     void heal(float heal)
     {
-        m_hero.m_currentHP += heal;
+        m_hero.m_currentHP += heal / m_hero.m_currentDEF;
 
         if(m_hero.m_currentHP > m_hero.m_baseHP)
         {
@@ -345,6 +330,62 @@ public class HeroStateMachine : MonoBehaviour
         }
     }
 
+    
+    //
+    void wasHit()
+    {
+        if (m_hit == true)
+        {
+            if (timer < 100)
+            {
+                if (left < 5)
+                {
+                    this.gameObject.transform.position -= new Vector3(0.1f, 0, 0);
+                    left++;
+                }
+
+                else if (right < 5)
+                {
+                    this.gameObject.transform.position += new Vector3(0.1f, 0, 0);
+                    right++;
+                }
+
+                else
+                {
+                    left = 0;
+                    right = 0;
+                }
+
+                timer++;
+            }
+            else
+            {
+                this.gameObject.transform.position = m_startPos;
+                timer = 0;
+                m_hit = false;
+            }
+        }
+    }
+    //
+    void attackAni()
+    {
+        if (m_attacking == true)
+        {
+            if (aniTimer < 10)
+            {
+                this.gameObject.transform.position -= new Vector3(0.1f, 0, 0);
+                aniTimer++;
+            }
+            else
+            {
+                this.gameObject.transform.position = m_startPos;
+                aniTimer = 0;
+                m_attacking = false;
+            }
+        }
+    }
+
+    //
     void setDT()
     {
         m_dtTarget.m_dtBluntWeak = m_hero.m_bluntWeak;
@@ -393,7 +434,7 @@ public class HeroStateMachine : MonoBehaviour
         }
 
     }
-
+    //
     void setBT()
     {
         m_btTarget.m_btBluntWeak = m_hero.m_bluntWeak;

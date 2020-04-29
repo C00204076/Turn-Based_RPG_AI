@@ -33,7 +33,7 @@ public class BaseEnemy : MonoBehaviour
     public int m_intelligence; // Magic power
     public int m_dexterity; // Balance and critical rate
     public int m_constitution; // HP and defense
-    public int m_agility; // Speed and dodge
+    public int m_agility; // Speed
 
     /*// Typing
     // Physical Damage
